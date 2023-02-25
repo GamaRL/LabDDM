@@ -4,12 +4,12 @@
 %%
 %% %% %% %%
 
-\documentclass[../main.tex]{subfiles}
-\graphicspath{{\subfix{../images/}}}
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
 
 \begin{document}
-\section*{Previo}
-\subsection*{Pregunta 1}
+\subsection{Previo}
+\subsubsection*{Pregunta 1}
 \begin{em}
   ¿Qué es un cronograma?
 \end{em}
@@ -23,7 +23,7 @@ sistema digital. Un cronograma muestra todos los posibles patrones de
 entrada-salida, no necesariamente en el mismo orden que la tabla de verdad.
 
 
-\subsection*{Pregunta 2}
+\subsubsection*{Pregunta 2}
 \begin{em}
   ¿Qué son las señales tipo Toggle, Random y Pulse?
 \end{em}
@@ -34,14 +34,14 @@ entrada-salida, no necesariamente en el mismo orden que la tabla de verdad.
   \item \textbf{Random.} Se trata de una señal que puede adquirir cualquier 
     valor en cualquier tiempo dado. Es decir, no existe algún patrón que se 
     repita en ella y no se pueden modelar con alguna función matemática.
-  \item \textbf{Pulse.} Se trata de una señal que pasa de un estado inicial a 
-    otro diferente en un intervalo determinado de tiempo finito; 
+  \item \textbf{Pulse.} Se trata de una señal periodica que pasa de un estado 
+    inicial a otro diferente en un intervalo determinado de tiempo finito; 
     posteriormente, retoma el valor inicial en otro intervalo de tiempo 
     finito.
 \end{itemize}
 
 
-\subsection*{Pregunta 3}
+\subsubsection*{Pregunta 3}
 \begin{em}
   ¿Para qué se utiliza la resistencia Pull-Up o Pull-Down?
 \end{em}
@@ -76,7 +76,7 @@ finalidad de establecer un estado lógico.
   \caption{Resistencias \textit{Pull Up} y \textit{Pull Down}}
 \end{figure}
 
-\subsection*{Pregunta 4}
+\subsubsection*{Pregunta 4}
 \begin{em}
   ¿Para un transistor a qué se le llama ``Corte'' y ``Saturación'' y cuál es su 
   efecto sobre las señales lógicas?
@@ -97,7 +97,7 @@ Por lo tanto, se puede considerar un estado \textit{``on''} cuando el
 transistor está en la región de saturación y un \textit{``off''} cuando el 
 transistor está en la región de corte.
 
-\subsection*{Pregunta 5}
+\subsubsection*{Pregunta 5}
 \begin{em}
   Analiza y caracteriza el siguiente circuito a través de cualquier simulador 
   e identifica el comportamiento que este tiene.
@@ -114,6 +114,7 @@ con lo cual se obtuvieron los siguientes valores:
 
 \begin{table}[H]
   \centering
+  \scalebox{0.8}{
   \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
     \hline
     \textbf{A}& \textbf{B}& \textbf{C}& \textbf{Q1}& \textbf{Q2}& \textbf{R2, Q3}  \\ \hline
@@ -126,8 +127,17 @@ con lo cual se obtuvieron los siguientes valores:
     VCC     & VCC     & Ground  & 0       & 2.8     & 0       \\
     VCC     & VCC     & VCC     & 0       & 0       & 5       \\ \hline
   \end{tabular}
+  }
+  \caption{Voltajes de la simulación (Pregunta 5)}
 \end{table}
 
+La simulación se llevó a cabo en lal plataforma \textit{Qucs}, tal como se 
+muestra a continuación:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=10cm]{previo_simulacion}
+  \caption{Circuito de simulación en \textit{Qucs} (Pregunta 5)}
+\end{figure}
 
 \end{document}
 
