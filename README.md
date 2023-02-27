@@ -13,6 +13,6 @@
 2. Si no existe el directorio `build/`, crearlo.
 3. Ejecutar el comando
 ```bash
-pdflatex --ouput-dir=build main
+pdflatex --output-dir=build main
 ```
 4. El archivo será `build/main.pdf`
