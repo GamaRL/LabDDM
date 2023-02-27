@@ -14,9 +14,9 @@
   Construir de manera gráfica las siguientes compuertas lógicas y simularlas 
   dentro de la plataforma Quartus.
   \begin{itemize}
-      \item NAND
-      \item NOR
-      \item NXOR (y su forma expandida)
+    \item NAND (y su forma expandida)
+    \item NOR (y su forma expandida)
+    \item XNOR (y su forma expandida)
   \end{itemize}
 \end{em}
 
@@ -72,16 +72,16 @@ una de las compuertas se muestra a continuación:
       1 & 1 & 1\\
       \hline
     \end{tabular}
-    \caption{Compuerta XOR}
+    \caption{Compuerta XNOR}
   \end{subtable}
 \end{table}
 
 Todas las compuertas anteriores tienen una equivalencia usando úncamente las 
 compuertas AND, OR y NOT, tal como se muestra a continuación.
 \begin{align}
-  \overline{A \cdot B} &= \overline{A} + \overline{B}\\
-  \overline{A + B} &= \overline{A} \cdot \overline{B}\\
-  \overline{A \cdot B} &= \overline{A} \cdot \overline{B} + A \cdot B
+  \overline{A \cdot B} &= \nt{A} + \nt{B}\\
+  \overline{A + B} &= \nt{A} \cdot \nt{B}\\
+  \overline{A \oplus B} &= \nt{A} \cdot \nt{B} + A \cdot B
 \end{align}
 
 \subsubsection{Desarrollo en Quartus}
@@ -104,6 +104,24 @@ entrada se muestra a continuación:
   \label{fig:variables_cron_b}
 \end{figure}
 
+Tal como se puede apreciar, se tienen las siguientes señales. Por un lado 
+están las entradas:
+\begin{itemize}
+  \item $A$
+  \item $B$
+\end{itemize}
+
+y por otro lado se tienen las salidas:
+\begin{itemize}
+  \item $s\_nand$: La salida de la compuerta NAND.
+  \item $s\_nor$: La salida de la compuerta NOR.
+  \item $s\_xnor$: La salida de la compuerta XNOR.
+  \item $s\_nande$: La salida de la compuerta NAND equivalente.
+  \item $s\_nore$: La salida de la compuerta NOR equivalente.
+  \item $s\_xnore$: La salida de la compuerta XNOR equivalente.
+\end{itemize}
+
+
 Al ejecutar la \textit{Simulación Funcional} se obtuvo lo siguiente:
 \begin{figure}[H]
   \centering
@@ -120,8 +138,6 @@ En la parte anterior, se pueden verificar dos cosas:
     es el mismo que el descrito por las tablas de verdad de la Tabla 
     \ref{tab:b_tv}.
 \end{enumerate}
-
-\newpage
 
 \end{document}
 

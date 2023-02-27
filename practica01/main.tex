@@ -18,16 +18,27 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\usepackage[hidelinks]{hyperref}
+
 
 % Configuraciones adicionales
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{6pt}
 \graphicspath{{./img/}}
+\addbibresource{bib/referencias.bib}
+
+% Definción de macros
+\newcommand{\nt}[1]{\bar{#1}}
 
 % Documento
 \begin{document}
+\subfile{sections/portada}
+\tableofcontents
+\clearpage
 \subfile{sections/objetivo}
 \subfile{sections/materiales}
 \subfile{sections/procedimientos}
 \subfile{sections/conclusion}
+\subfile{sections/bibliografia}
 \end{document}

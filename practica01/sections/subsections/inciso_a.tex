@@ -8,6 +8,7 @@
 \graphicspath{{\subfix{../../images/}}}
 
 \begin{document}
+\clearpage
 \subsection{Parte A}
 \subsubsection{Instrucciones}
 \begin{em}
@@ -65,7 +66,7 @@ una de las compuertas se muestra a continuación:
     \label{tab:comp_not}
     \begin{tabular}{|c|c|}
       \hline
-      $A$ & $\overline{A}$\\
+      $A$ & $\nt{A}$\\
       \hline
       0 & 1\\
       1 & 0\\
@@ -93,7 +94,7 @@ una de las compuertas se muestra a continuación:
 De igual forma, se pueden comporbar la siguiente equivalencia entre las 
 operaciones lógicas XOR, AND y OR:
 \begin{equation}
-  A \oplus B = \overline{A} \cdot B + A \cdot \overline{B}
+  A \oplus B = \nt{A} \cdot B + A \cdot \nt{B}
 \end{equation}
 
 \subsubsection{Desarrollo en Quartus}
@@ -149,9 +150,4 @@ Se puede comprobar entonces, a través de la Tabla \ref{tab:a_tv} que el
 cronograma de la Figura \ref{fig:variables_cron_a} tiene el comportamiento 
 esperodo, por lo tanto, el sistema fue construido de una forma adecuada.
 
-
-\newpage
-
 \end{document}
-
-
