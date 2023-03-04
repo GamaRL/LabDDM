@@ -21,6 +21,135 @@ ambiente gráfico de la plataforma \textit{Quatus II} de \textit{Altera}.
 \end{itemize}
 
 \subsubsection{Análisis}
+De igual forma que en la Parte A, se comenzará haciendo el análsis del 
+comportamiento de cada una de las funciones lógicas a través de us tabla de 
+verdad. Comenzando con el comportamiento de $f_1(xyz)$.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|ccc|c}
+    \hline
+    $x$ & $y$ & $z$ & $\nt{x}$ & $y\nt{z}$ & $\nt{x}+y\nt{z}+z$ & $f_1$\\
+    \hline
+    0 & 0 & 0 & 1 & 0 & 1 & 0\\
+    0 & 0 & 1 & 1 & 0 & 1 & 0\\
+    0 & 1 & 0 & 1 & 1 & 1 & 0\\
+    0 & 1 & 1 & 1 & 0 & 1 & 0\\
+    1 & 0 & 0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 1 & 0 & 0 & 1 & 1\\
+    1 & 1 & 0 & 0 & 1 & 1 & 1\\
+    1 & 1 & 1 & 0 & 0 & 1 & 1\\
+    \hline
+  \end{tabular}
+  \caption{Tabla de verdad de $f_1(xyz)$ (Parte B)}
+  \label{tab:b_f1}
+\end{table}
+
+Continuando con el comportamiento de $f_2(xyz)$, se tiene que:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|ccc|c}
+    \hline
+    $x$ & $y$ & $z$ & $x+y$ & $\nt{x}+y$ & $\nt{y}+\nt{z}$ & $f_2$\\
+    \hline
+    0 & 0 & 0 & 0 & 1 & 1 & 0\\
+    0 & 0 & 1 & 0 & 1 & 1 & 0\\
+    0 & 1 & 0 & 1 & 1 & 1 & 1\\
+    0 & 1 & 1 & 1 & 1 & 0 & 0\\
+    1 & 0 & 0 & 1 & 0 & 1 & 0\\
+    1 & 0 & 1 & 1 & 0 & 1 & 0\\
+    1 & 1 & 0 & 1 & 1 & 1 & 1\\
+    1 & 1 & 1 & 1 & 1 & 0 & 0\\
+    \hline
+  \end{tabular}
+  \caption{Tabla de verdad de $f_2(xyz)$ (Parte B)}
+  \label{tab:b_f2}
+\end{table}
+
+Se prosigue con el comportamiento de la función lógica $f_3(xyz)$, para esta, 
+es primero hacer uso de la equivalencia lógica de la operación XOR, con la 
+finalidad de simplificar sus cálculos. Por lo tanto, se obtiene lo siguiente:
+\begin{align*}
+  f_3(xyz) &= \nt{x}\nt{y} + x\nt{\nt{y}} + \cancel{\nt{x}\nt{y}}\\
+  &= \nt{x}\nt{y} + xy
+\end{align*}
+$$\therefore{f_3(xyz) = \nt{x}\nt{y} + xy}$$
+
+Haciendo uso de la equivalencia anterior, se puede conformar la tabla de 
+verdad de la siguiente forma:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|cc|c}
+    \hline
+    $x$ & $y$ & $z$ & $\nt{x}\nt{y}$ & $xy$ & $f_3$\\
+    \hline
+    0 & 0 & 0 & 1 & 0 & 1\\
+    0 & 0 & 1 & 1 & 0 & 1\\
+    0 & 1 & 0 & 0 & 0 & 0\\
+    0 & 1 & 1 & 0 & 0 & 0\\
+    1 & 0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0 & 1 & 1\\
+    1 & 1 & 1 & 0 & 1 & 1\\
+    \hline
+  \end{tabular}
+  \caption{Tabla de verdad de $f_3(xyz)$ (Parte B)}
+  \label{tab:b_f3}
+\end{table}
+
+Para concluir lo anterior, también se elaborará la tabla de verdad de la 
+función $f_4(xy)$, la cual se puede simplificar a través de la equivalencia 
+lógica de la compuerta XNOR.
+\begin{align*}
+  f_4(xz) &= (x + z) \odot \nt{x}\\
+  &= \overline{(x+z)}\nt{\nt{x}} + (x+z)x\\
+  &= \cancel{(\nt{x}\nt{z})x} + (x+z)\nt{x}\\
+  &= \cancel{x\nt{x}} + \nt{x}z\\
+  &= \nt{x}z
+\end{align*}
+$$f_4(xyz) = \nt{x}z$$
+
+Con la equivalencia anterior se puede elaborar la tabla de verdad, tal como se 
+muestra a continuación
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|cc|c}
+    \hline
+    $x$ & $y$ & $\nt{x}z$ & $f_4$\\
+    \hline
+    0 & 0 & 0 & 0\\
+    0 & 1 & 1 & 1\\
+    1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0\\
+    \hline
+  \end{tabular}
+  \caption{Tabla de verdad de $f_4(xyz)$ (Parte B)}
+  \label{tab:b_f4}
+\end{table}
+
+Finalmente, se combinarán los resultados de las Tablas \ref{tab:b_f1}, 
+\ref{tab:b_f2}, \ref{tab:b_f3} y \ref{tab:b_f4}, con la finalidad de tener el 
+resultado de cada una de ellas en una sola tabla.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|cccc|c}
+    \hline
+    $x$ & $y$ & $z$ & $f_1$ & $f_2$ & $f_3$ & $f_4$ & HEX\\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 2\\
+    0 & 0 & 1 & 0 & 0 & 1 & 0 & 2\\
+    0 & 1 & 0 & 0 & 1 & 0 & 0 & 4\\
+    0 & 1 & 1 & 0 & 0 & 0 & 1 & 1\\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 1 & 1 & 0 & 0 & 0 & 8\\
+    1 & 1 & 0 & 1 & 1 & 1 & 0 & E\\
+    1 & 1 & 1 & 1 & 0 & 1 & 1 & B\\
+    \hline
+  \end{tabular}
+  \caption{Resumen del comportamiento de $f_1$, $f_2$, $f_3$ y $f_4$ (Parte 
+  B)}
+  \label{tab:b_summary}
+\end{table}
+
 
 \subsubsection{Implementación en Quartus}
 
