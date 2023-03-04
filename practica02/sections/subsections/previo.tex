@@ -1,0 +1,245 @@
+%% %% %% %%
+%%
+%% Previo de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\subsection{Previo}
+\subsubsection*{Pregunta 1}
+\begin{em}
+  ¿Qué es un minitérmino y un maxitérmino?
+\end{em}
+
+\paragraph{Minitérmino.} También conocido como \textit{producto estándar}.  Se 
+trata de un término lógico formado por la conjunción de las $n$ variables de 
+una función lógica (negada o sin negar).
+
+\paragraph{Maxitérmino.} También conocido como \textit{suma estándar}.  Se 
+trata de un término lógico formado por la disyunción de las $n$ variables de 
+una función lógica (negada o sin negar).
+
+Para cada uno de los términos anteriores, existen $2^n$ combinaciones posibles 
+con todas las variables lógicas.
+
+\subsubsection*{Pregunta 2}
+\begin{em}
+  ¿Qué es una forma suma de productos y producto de sumas?
+\end{em}
+
+\paragraph{Suma de minitérminos.} Se trata de una forma de representar a 
+cualquier función lógica como una suma de minitérminos. Los minitérminos que 
+se utilizan para la suma son aquellos que en la tabla de verdad producen una 
+salida lógica de $1$.
+
+\paragraph{Producto de maxitérminos.} De forma análoga, se trata de un método 
+para representar a cuaquier función booleana como un producto de maxitérminos.  
+Los maxitérminos que se utilizan para el producto son aquellos que en la tabla 
+de verdad producen una salida lógica de $0$.
+
+\subsubsection*{Pregunta 3}
+\begin{em}
+  De las siguientes expresiones, deduce las formas SOP y POS canónicas para 
+  cada una de ellas.
+  \begin{enumerate}
+    \item $f(abc) = ab + (\nt{b} + \nt{c}) + a \nt{c}$
+    \item $f(abcd) = (a + b) (\nt{c} + d)(a + c + d)$
+    \item $f(xywz) = x y \nt{z} + y \nt{w} + y (w \nt{z})$
+    \item $f(cabo) = \nt{c} (a + \nt{a} o) + \nt{b} o$
+  \end{enumerate}
+\end{em}
+
+\paragraph{Expresión 1.} Se comenzará con la obtención de la forma 
+\textit{SOP}.
+\begin{align*}
+  f(abc) &= ab + (\nt{b} + \nt{c}) + a \nt{c}\\
+  &= a b + \nt{b} + \nt{c} (1 + a)\\
+  &= a b 1 + \nt{b} 1 1 + \nt{c} 1 1\\
+  &= a b (c + \nt{c}) + \nt{b} (a + \nt{a}) (c + \nt{c}) + \nt{c} (a + \nt{a}) 
+  (b + \nt{b})\\
+  &= abc + ab\nt{c} + a\nt{b}c + a\nt{b}\nt{c} + \nt{a}\nt{b}c + 
+  \nt{a}\nt{b}\nt{c} + \cancel{ab\nt{c}} + \cancel{a\nt{b}\nt{c}} + 
+  \nt{a}b\nt{c} + \cancel{\nt{a}\nt{b}\nt{c}}\\
+  &= abc + ab\nt{c} + a\nt{b}c + a\nt{b}\nt{c} + \nt{a}\nt{b}c + 
+  \nt{a}\nt{b}\nt{c} + \nt{a}b\nt{c}
+\end{align*}
+
+Continuando con la obtención de la forma \textit{POS}:
+\begin{align*}
+  f(abc) &= ab + (\nt{b} + \nt{c}) + a \nt{c}\\
+  &= ab + \nt{b} + \nt{c} (1 + a)\\
+  &= ab + (\nt{b} + \nt{c})\\
+  &= (a + \nt{b} + \nt{c}) (b + \nt{b} + \nt{c})\\
+  &= (a + \nt{b} + \nt{c})
+\end{align*}
+
+\begin{equation*}
+  \boxed{
+    \therefore f(abc) = \sum (m_0, m_1, m_2, m_4, m_5, m_6, m_7)
+  }
+\end{equation*}
+\begin{equation*}
+  \boxed{
+    \therefore f(abc) = \prod (M_3)
+  }
+\end{equation*}
+
+\paragraph{Expresión 2.} Se comenzará con la obtención de la forma 
+\textit{POS}.
+\begin{align*}
+  f(abcd) &= (a + b) (\nt{c} + d)(a + c + d)\\
+  &= (a + b + 0 + 0) (\nt{c} + d + 0 + 0)(a + c + d + 0)\\
+  &= (a + b + c\nt{c} + d\nt{d})(\nt{c} + d + a\nt{a} + b\nt{b})(a + c + d + b 
+  \nt{b})\\
+  &= (a + b + c + d) (a + b + c + \nt{d}) (a + b + \nt{c} + d) (a + b + \nt{c} 
+  + \nt{d}) \cancel{(a + b + \nt{c} + d)}\\
+  &\,  (a + \nt{b} + \nt{c} + d) (\nt{a} + b + \nt{c} + d) (\nt{a} + \nt{b} + 
+  \nt{c} + d) \cancel{(a + b + c + d)} (a + \nt{b} + c + d)\\
+  &= (a + b + c + d) (a + b + c + \nt{d}) (a + b + \nt{c} + d) (a + b + \nt{c} 
+  + \nt{d}) (a + \nt{b} + c + d)\\
+  &\,  (a + \nt{b} + \nt{c} + d)(\nt{a} + b + \nt{c} + d) (\nt{a} + \nt{b} + 
+  \nt{c} + d)
+\end{align*}
+
+Prosiguiendo con la obtención de la forma \textit{SOP}.
+\begin{align*}
+  f(abcd) &= (a + b) (\nt{c} + d)(a + c + d)\\
+  &= a a \nt{c} + a \nt{c} c + a \nt{c} d + a a d + a c d + a d d + a b \nt{c} 
++ b \nt{c} c + b \nt{c} d + a b d + b c d + b d d\\
+  &= a \nt{c} + 0 + a \nt{c} d + a d + a c d + a d + a b \nt{c} + 0 + b \nt{c} 
+d + a b d + b c d + b d\\
+  &= a \nt{c} + a \nt{c} d + a d + a c d + a d + a b \nt{c} + b \nt{c} d + a b 
+d + b c d + b d\\
+  &= a \nt{c} (1 + d) + a d (1 + c) + a b \nt{c} + b \nt{c} d + ad (1 + b) + 
+  bd( c + 1)\\
+  &= a \nt{c} + a d + a b \nt{c} + b \nt{c} d + \cancel{ad}  + bd\\
+  &= a \nt{c} + a d + a b \nt{c} + bd(\nt{c} + 1)\\
+  &= a \nt{c} + a d + a b \nt{c} + bd\\
+\end{align*}
+
+Con la forma deducida anteriormente es posible obtener los minitérminos de 
+forma más sencilla.
+\begin{align*}
+  f(abcd) &= a \nt{c} + a d + a b \nt{c} + bd\\
+  &= a \nt{c} 1 1 + a d 1 1 + a b \nt{c} 1 + b d 1 1\\
+  &= a \nt{c} (b + \nt{b}) (d + \nt{d}) + a d (b + \nt{b}) (c + \nt{c}) + a b 
+  \nt{c} (d + \nt{d}) + b d (a + \nt{a}) (c + \nt{c})\\
+  &= ab\nt{c}d + ab\nt{c}\nt{d} + a\nt{b}\nt{c}d + a\nt{b}\nt{c}\nt{d} + abcd 
+  + \cancel{ab\nt{c}d} + a\nt{b}cd + \cancel{a\nt{b}\nt{c}d} + 
+  \cancel{ab\nt{c}d} + \cancel{ab\nt{c}\nt{d}}\\
+  &\, + \cancel{abcd} + \cancel{ab\nt{c}d} + \nt{a}bcd + \nt{a}b\nt{c}d\\
+  &= abcd + ab\nt{c}d + ab\nt{c}\nt{d} + a\nt{b}cd + a\nt{b}\nt{c}d + 
+  a\nt{b}\nt{c}\nt{d} + \nt{a}bcd + \nt{a}b\nt{c}d
+\end{align*}
+
+\begin{equation*}
+  \boxed{
+    \therefore f(abcd) = \sum (m_5, m_7, m_8, m_9, m_{11}, m_{12}, m_{13}, 
+  m_{15})
+  }
+\end{equation*}
+\begin{equation*}
+  \boxed{
+    \therefore f(abcd) = \prod (M_0, M_1, M_2, M_3, M_4, M_6, M_{10}, M_{14})
+  }
+\end{equation*}
+
+\paragraph{Expresión 3.} Se comenzará con la obtención de la forma 
+\textit{SOP}:
+\begin{align*}
+  f(xywz) &= x y \nt{z} + y \nt{w} + y (w \nt{z})\\
+  &= x y \nt{z} (w + \nt{w}) + y \nt{w} (x + \nt{x}) (z + \nt{z}) + y (w 
+  \nt{z}) (x + \nt{x})\\
+  &= xyw\nt{z} + xy\nt{w}\nt{z} + xy\nt{w}z + \cancel{xy\nt{w}\nt{z}} + 
+  \nt{x}y\nt{w}z + \nt{x}y\nt{w}\nt{z} + \cancel{xyw\nt{z}} + \nt{x}yw\nt{z}\\
+  &= xyw\nt{z} + xy\nt{w}z + xy\nt{w}\nt{z} + \nt{x}yw\nt{z} + \nt{x}y\nt{w}z 
+  + \nt{x}y\nt{w}\nt{z}
+\end{align*}
+
+Con lo anterior, ahora se puede continuar con la obtención de la forma 
+\textit{POS}.
+\begin{align*}
+  f(xywz) &= x y \nt{z} + y \nt{w} + y (w \nt{z})\\
+  &= y (x \nt{z} + \nt{w} + w \nt{z})\\
+  &= y (\nt{z} (x + w) + \nt{w})\\
+  &= y (\nt{z} + \nt{w}) (x + w + \nt{w})\\
+  &= y (\nt{z} + \nt{w})\\
+  &= (y + x\nt{x} + w\nt{w} + z\nt{z}) (\nt{z} + \nt{w} + x\nt{x} + y\nt{y})\\
+  &= (x + y + w + z) (x + y + w + \nt{z}) (x + y + \nt{w} + z) (x + y + \nt{w} 
+  + \nt{z})\\
+  &\, (\nt{x} + y + w + z) (\nt{x} + y + w + \nt{z}) (\nt{x} + y + \nt{w} + z) 
+  (\nt{x} + y + \nt{w} + \nt{z})\\
+  &\, \cancel{(x + y + \nt{w} + \nt{z})} (x + \nt{y} + \nt{w} + \nt{z}) 
+  \cancel{(\nt{x} + y + \nt{w} + \nt{z})} (\nt{x} + \nt{y} + \nt{w} + 
+  \nt{z})\\
+  &= (x + y + w + z) (x + y + w + \nt{z}) (x + y + \nt{w} + z) (x + y + \nt{w} 
+  + \nt{z})\\
+  &\, (x + \nt{y} + \nt{w} + \nt{z}) (\nt{x} + y + w + z) (\nt{x} + y + w + 
+  \nt{z}) (\nt{x} + y + \nt{w} + z)\\
+  &\, (\nt{x} + y + \nt{w} + \nt{z}) (\nt{x} + \nt{y} + \nt{w} + \nt{z})
+\end{align*}
+
+\begin{equation*}
+  \boxed{
+    \therefore f(xywz) = \sum (m_4, m_5, m_6, m_{12}, m_{13}, m_{14})
+  }
+\end{equation*}
+\begin{equation*}
+  \boxed{
+    \therefore f(xywz) = \prod (M_0, M_1, M_2, M_3, M_7, M_8, M_9, M_{10}, 
+  M_{11}, M_{15})
+  }
+\end{equation*}
+
+\paragraph{Expresión 4.} Se comenzará con la obtención de la forma 
+\textit{SOP}:
+\begin{align*}
+  f(cabo) &= \nt{c} (a + \nt{a}o) + \nt{b} o\\
+  &= \nt{c}a + \nt{c}\nt{a}o + \nt{b} o\\
+  &= \nt{c}a(b+\nt{b})(o+\nt{o}) + \nt{c}\nt{a}o(b+\nt{b}) + 
+  \nt{b}o(c+\nt{c})(a+\nt{a})\\
+  &= \nt{c}abo + \nt{c}ab\nt{o} + \nt{c}a\nt{b}o + \nt{c}a\nt{b}\nt{o} + 
+  \nt{c}\nt{a}bo + \nt{c}\nt{a}\nt{b}o + ca\nt{b}o + c\nt{a}\nt{b}o + 
+  \cancel{\nt{c}a\nt{b}o} + \cancel{\nt{c}\nt{a}\nt{b}o}\\
+  &= ca\nt{b}o + c\nt{a}\nt{b}o + \nt{c}abo + \nt{c}ab\nt{o} + \nt{c}a\nt{b}o 
+  + \nt{c}a\nt{b}\nt{o} + \nt{c}\nt{a}bo + \nt{c}\nt{a}\nt{b}o
+\end{align*}
+
+Prosiguiendo con la obtención de la \textit{POS}:
+\begin{align*}
+  f(cabo) &= \nt{c} (a + \nt{a}o) + \nt{b} o\\
+  &= (\nt{c} + \nt{b}o)(a + \nt{a}o + \nt{b}o)\\
+  &= (\nt{c} + \nt{b})(\nt{c} + o)(a + (\nt{a} + \nt{b}) o)\\
+  &= (\nt{c} + \nt{b})(\nt{c} + o)(a + \nt{a} + \nt{b}) (a + o)\\
+  &= (\nt{c} + \nt{b})(\nt{c} + o)(1 + \nt{b})(a + o)\\
+  &= (\nt{c} + \nt{b})(\nt{c} + o)(a + o)\\
+  &= (\nt{c} + \nt{b} + a\nt{a} + o\nt{o})(\nt{c} + o + a\nt{a} + b\nt{b})(a + 
+  o + c\nt{c} + b\nt{b})\\
+  &= (\nt{c}+a+\nt{b}+o) (\nt{c}+a+\nt{b}+\nt{o}) (\nt{c}+\nt{a}+\nt{b}+o) 
+  (\nt{c}+\nt{a}+\nt{b}+\nt{o})\\
+  &\, (\nt{c}+a+b+o) \cancel{(\nt{c}+a+\nt{b}+o)} (\nt{c}+\nt{a}+b+o) 
+  \cancel{(\nt{c}+\nt{a}+\nt{b}+o)}\\
+  &\,(c+a+b+o) (c+a+\nt{b}+o) \cancel{(\nt{c}+a+b+o)} 
+  \cancel{(\nt{c}+a+\nt{b}+o)}\\
+  &= (c+a+b+o) (c+a+\nt{b}+o) (\nt{c}+a+b+o) (\nt{c}+a+\nt{b}+o) 
+  (\nt{c}+a+\nt{b}+\nt{o})\\
+  &\, (\nt{c}+\nt{a}+b+o) (\nt{c}+\nt{a}+\nt{b}+o) 
+(\nt{c}+\nt{a}+\nt{b}+\nt{o})\\
+\end{align*}
+
+\begin{equation*}
+  \boxed{
+    \therefore f(cabo) = \sum (m_1, m_3, m_4, m_5, m_6, m_7, m_9, m_{13})
+  }
+\end{equation*}
+\begin{equation*}
+  \boxed{
+    \therefore f(cabo) = \prod (M_0, M_2, M_8, M_{10}, M_{11}, M_{12}, M_{14}, 
+  M_{15})
+  }
+\end{equation*}
+\end{document}
+
