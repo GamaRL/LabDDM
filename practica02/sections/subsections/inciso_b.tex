@@ -103,26 +103,25 @@ lógica de la compuerta XNOR.
   f_4(xz) &= (x + z) \odot \nt{x}\\
   &= \overline{(x+z)}\nt{\nt{x}} + (x+z)x\\
   &= \cancel{(\nt{x}\nt{z})x} + (x+z)\nt{x}\\
-  &= \cancel{x\nt{x}} + \nt{x}z\\
-  &= \nt{x}z
+  &= (x+z)\nt{x}
 \end{align*}
-$$f_4(xyz) = \nt{x}z$$
+$$f_4(xz) = (x+z)\nt{x}$$
 
 Con la equivalencia anterior se puede elaborar la tabla de verdad, tal como se 
 muestra a continuación
 \begin{table}[H]
   \centering
-  \begin{tabular}{ccc|cc|c}
+  \begin{tabular}{cc|cc|c}
     \hline
-    $x$ & $y$ & $\nt{x}z$ & $f_4$\\
+    $x$ & $z$ & $\nt{x}$ & $x+z$ & $f_4$\\
     \hline
-    0 & 0 & 0 & 0\\
-    0 & 1 & 1 & 1\\
-    1 & 0 & 0 & 0\\
-    1 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 1 & 1\\
+    1 & 0 & 0 & 1 & 0\\
+    1 & 1 & 0 & 1 & 0\\
     \hline
   \end{tabular}
-  \caption{Tabla de verdad de $f_4(xyz)$ (Parte B)}
+  \caption{Tabla de verdad de $f_4(xz)$ (Parte B)}
   \label{tab:b_f4}
 \end{table}
 
@@ -136,13 +135,13 @@ resultado de cada una de ellas en una sola tabla.
     $x$ & $y$ & $z$ & $f_1$ & $f_2$ & $f_3$ & $f_4$ & HEX\\
     \hline
     0 & 0 & 0 & 0 & 0 & 1 & 0 & 2\\
-    0 & 0 & 1 & 0 & 0 & 1 & 0 & 2\\
+    0 & 0 & 1 & 0 & 0 & 1 & 1 & 3\\
     0 & 1 & 0 & 0 & 1 & 0 & 0 & 4\\
     0 & 1 & 1 & 0 & 0 & 0 & 1 & 1\\
     1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
     1 & 0 & 1 & 1 & 0 & 0 & 0 & 8\\
     1 & 1 & 0 & 1 & 1 & 1 & 0 & E\\
-    1 & 1 & 1 & 1 & 0 & 1 & 1 & B\\
+    1 & 1 & 1 & 1 & 0 & 1 & 0 & A\\
     \hline
   \end{tabular}
   \caption{Resumen del comportamiento de $f_1$, $f_2$, $f_3$ y $f_4$ (Parte 
@@ -150,8 +149,64 @@ resultado de cada una de ellas en una sola tabla.
   \label{tab:b_summary}
 \end{table}
 
-
 \subsubsection{Implementación en Quartus}
+Para la implementación en la plataforma \textit{Quartus}, se siguió una 
+metodología similar a la mostrada en la Sección \ref{subs:a_imp}, con la cual 
+se hicieron cuatro archivos de bloques, uno para cada función lógica 
+requirida. Los bloques implementados se muestran a continuación.
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b1}
+  \caption{Implementación de $f_1(xyz)$ (Parte B)}
+  \label{fig:b_f1}
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b2}
+  \caption{Implementación de $f_2(xyz)$ (Parte B)}
+  \label{fig:b_f2}
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b3}
+  \caption{Implementación de $f_3(xyz)$ (Parte B)}
+  \label{fig:b_f3}
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b4}
+  \caption{Implementación de $f_4(xyz)$ (Parte B)}
+  \label{fig:b_f4}
+\end{figure}
+
+Se hizo uso del concepto de arreglos de señales con la finalidad de 
+simplificar la utilización de cada uno de los módulos y así mismo, comprobar 
+más sencillamente el funcionamiento de los sistemas. De igual forma, muchas de 
+las conexiones se llevaron a cabo a través de la colocación de etiquetas en 
+los cables ---tal como aprendimos en la Parte A.
+
+De igual forma, en un archivo de bloques separado fue importante mandar a 
+llamar a cada uno de los símbolos previamente creados con la finalidad de 
+ponerlos a pruba con un vector de entrada y un vector de salida, tal como se 
+muestra a continuación.
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b}
+  \caption{Implementación de la solución (Parte B)}
+  \label{fig:b_complete}
+\end{figure}
+
+Con lo anterior, fue posible realizar la simulación con ayuda de un archivo de 
+tipo \textit{University Program VWF}. Se configuraron las señales a 
+visualizar, y se configuraron para tener las entradas mostradas en la Tabla 
+\ref{tab:b_summary}. Su utilizó la \textit{Funcional Simuation}, y el resultdo 
+fue el siguiente:
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{ejercicio_b_sim}
+  \caption{Simulación (Parte B)}
+  \label{fig:b_sim}
+\end{figure}
+
+Tal como se puede ver en la Figura \ref{fig:b_sim}, los resultados de la 
+simulación fueron los mismos que los pre-calculados en la Tabla 
+\ref{tab:b_summary}. Los valores del arreglo $Ent$ (codificados en 
+hexadecimal) son las señales de entrada; y los valores del arreglo $Sal$ 
+(codificados en hexadecimal) son las señales de salida de la función.
 
 \end{document}
 
