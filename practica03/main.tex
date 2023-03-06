@@ -1,0 +1,44 @@
+%% %% %% %%
+%%
+%% Práctica 1
+%%  Implementación de compuertas básicas
+%%  en la plataroma Quartus II, en modo gráfico
+%%
+%% %% %% %%
+
+\documentclass[12pt, letterpaper]{article}
+
+% Paquetes básicos
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{subfiles}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{cancel}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\usepackage[hidelinks]{hyperref}
+
+% Configuraciones adicionales
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+\graphicspath{{./img/}}
+\addbibresource{bib/referencias.bib}
+
+% Definción de macros
+\newcommand{\nt}[1]{\bar{#1}}
+
+% Documento
+\begin{document}
+\subfile{sections/portada}
+\subfile{sections/indice}
+\subfile{sections/objetivo}
+\subfile{sections/materiales}
+\subfile{sections/introduccion}
+\subfile{sections/desarrollo}
+\subfile{sections/conclusion}
+\subfile{sections/bibliografia}
+\end{document}
