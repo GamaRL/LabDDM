@@ -5,7 +5,7 @@
 2. [Construcción de funciones booleanas en la plataforma Quartus II, en modo 
    gráfico](practica02/)
 3. [Implementación de funciones en la plataforma Quartus II, en
-modo gráfico](practica02/)
+modo gráfico](practica03/)
 
 ## Estructura de cada práctica
 - `build/`: En este directorio se coloca la compilación de `LaTeX`.
