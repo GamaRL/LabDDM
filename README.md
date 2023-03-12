@@ -2,10 +2,8 @@
 
 ## Índice de Prácticas
 1. [Implementación de compuertas básicas en la plataforma Quartus II, en modo gráfico](practica01/)
-2. [Construcción de funciones booleanas en la plataforma Quartus II, en modo 
-   gráfico](practica02/)
-3. [Implementación de funciones en la plataforma Quartus II, en
-modo gráfico](practica03/)
+2. [Construcción de funciones booleanas en la plataforma Quartus II, en modo gráfico](practica02/)
+3. [Aplicación de Funciones Lógicas](practica03/)
 
 ## Estructura de cada práctica
 - `build/`: En este directorio se coloca la compilación de `LaTeX`.
