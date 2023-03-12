@@ -100,7 +100,114 @@ Desarrrollando la suma de productos para simplificar la expresión, se tiene:
 
 \subsubsection{Implementación en Quartus}\label{subs:a_imp}
 La implementación en la plataforma \textit{Quartus II} del sistema anterior se 
-dividió en símbolos separados. Por un lado
+dividió en símbolos separados. Por un lado, se tiene el símbolo referente a 
+$f_v$, y por otro se tiene $f_r$. Cada uno de ellos toma como entrada al 
+arreglo $Ent$, la cual asigna los valores correspondientes a las variables 
+$c$, $w$, $x$, $y$ y $z$ de la siguiente forma:
+\begin{itemize}
+  \item $Ent[4] \Rightarrow c$
+  \item $Ent[3] \Rightarrow w$
+  \item $Ent[2] \Rightarrow x$
+  \item $Ent[1] \Rightarrow y$
+  \item $Ent[0] \Rightarrow z$
+\end{itemize}
 
+Los diagrámas de bloques se pueden ver a continuación:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{a_fv}
+  \caption{Implementación de $f_v(cwxyz)$}
+  \label{fig:a_fv}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{a_fr}
+  \caption{Implementación de $f_r(cwxyz)$}
+  \label{fig:a_fr}
+\end{figure}
+
+Para cada uno de los diagramas anteriores, se convirtió en un símbolo, con la 
+finalidad de juntar el comportamiento de ambos dentro de un ``módulo 
+principal'', el cual se muestra a continuación:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{a_complete}
+  \caption{Implementación completa (Sección A)}
+  \label{fig:a_complete}
+\end{figure}
+
+De igual forma que en las prácticas anteriores, se hizo uso de un archivo 
+\textit{University Program VWF} para simular el circuito, el resultado fue el 
+siguiente:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{a_sim}
+  \caption{Simulación del sistema (Sección A)}
+  \label{fig:a_sim}
+\end{figure}
+
+Se puede comprobar que el comportamiento descrito en la Figura \ref{fig:a_sim} 
+es el indicado ya que los puntos donde las señales de salida ($f_v$ y $f_r$) 
+se activan son justamente los miniterminos planteados en el análisis del 
+problema.
+
+\subsection{Ejecución en la FPGA}
+Primero, se cargaron los pines correspondientes a través de la ventana 
+\textit{Pin Planner}. La asignación fue la misma que se muestra en la Figura 
+\ref{fig:a_complete}, donde los pines PIN\_C10, PIN\_C11, PIN\_D12 y PIN\_C12 
+son las señales de entrada; mientras que PIN\_A9 es la salida del LED verde y 
+PIN\_A8 es la salida del LED rojo.
+
+Posteriormente, se volvió a compilar el proyecto para tomar en cuenta los 
+nuevos pines de entrada/salida. Y, finalmente, a través de la ventana 
+\textit{Porgrammer}, se cargó el archivo cn exel archivo cn extensión 
+\textit{.sof} a la tarjeta de desarrollo \textit{DE10-Lite}.
+
+A continuación, se muestran algunos casos de prueba dentro de la tarjeta. Los 
+LED's que simulan la salida son los dos de hasta la derecha: LEDR1 es el LED 
+verde y LEDR0 es el LED rojo. Por otra parte, las entradas al sistema son los 
+cinco \textit{switch} que se encuentras más a la derecha ---de más 
+significativo a menos significativo de izquierda a derecha.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 01100 (12)}
+    \label{fig:a_tarj_1}
+    \includegraphics[width=\textwidth]{a_tarj_1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 10101 (25)}
+    \label{fig:a_tarj_2}
+    \includegraphics[width=\textwidth]{a_tarj_2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 11001 (21)}
+    \label{fig:a_tarj_3}
+    \includegraphics[width=\textwidth]{a_tarj_3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 11110 (30)}
+    \label{fig:a_tarj_4}
+    \includegraphics[width=\textwidth]{a_tarj_4}
+  \end{subfigure}
+  \caption{Casos de prueba (Sección A)}
+\end{figure}
+
+Los casos de prueba se comportan según lo esperado:
+\begin{itemize}
+  \item Para el caso de \ref{fig:a_tarj_1}: El mintérmino 12 prende el LED 
+    verde (LED izquierdo).
+  \item Para el caso de \ref{fig:a_tarj_2}: El mintérmino 25 prende el LED 
+    verde (LED izquierdo).
+  \item Para el caso de \ref{fig:a_tarj_3}: El mintérmino 21 prende el LED 
+    rojo (LED derecho).
+  \item Para el caso de \ref{fig:a_tarj_4}: El mintérmino 30 prende ambos 
+    LED's.
+
+\end{itemize}
 \end{document}
 
