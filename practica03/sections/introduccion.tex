@@ -10,6 +10,56 @@
 \begin{document}
 \clearpage
 \section{Introducción}
+Una función booleana, originada a partir de un problema de estudio, puede 
+llevar a la construcción de un circuito lógico generado a partir de la 
+conexión de múltiples compuertas lógicas. Dicho circuito presentará la misma 
+cantidad de entradas y salidas planteadas para la función que le da origen, y 
+debe reflejar el comportamiento descrito por la función. En el caso particular 
+de presentarse una función en la que se tienen diferentes comportamientos u 
+opciones dependiendo del valor de un bit a la entrada, debe optarse por 
+incluir dicho bit en la cadena de entrada, evaluar los posibles casos en una 
+tabla de verdad y formular la función a partir de aquellos casos que resulten 
+de interés. Por ejemplo, esto se presenta en un sistema digital que tiene la 
+opción de conversión de un código binario a código Gray y de código Gray a 
+binario, dependiendo del estado de un bit de control ``c''; caso que se 
+desarrolla a profundidad en la presente práctica, por lo cual se requieren 
+conocimientos en torno a dicho sistema numérico.
+
+El código Gray es un código sin peso y no aritmético cuya característica 
+principal es que solo varía en un bit de una secuencia de dígitos a la 
+siguiente; razón por la cual se le designa como código progresivo, y al 
+suceder dicha progresión entre la primera y última combinación, se le 
+denomina a la vez como un código cíclico.
+
+Existen ciertas reglas que permiten realizar la conversión de sistema binario 
+a código Gray y viceversa. Para el primero de los casos se tiene lo 
+siguiente:
+
+\begin{enumerate}
+  \item El bit más significativo se mantiene.
+  \item De izquierda a derecha se realiza un suma binaria para cada par 
+    adyacente de bits y el acarreo se descarta.
+\end{enumerate}
+
+Para convertir de código Gray a binario, se realiza lo siguiente:
+\begin{enumerate}
+  \item El bit más significativo se mantiene.
+  \item A cada uno de los bits obtenidos (del número binario) se le suma (en 
+    binario) el siguiente bit adyacente del código Gray y se descarta el acarreo.
+\end{enumerate}
+
+Este código tiene diversas aplicaciones particularmente en el ámbito de los 
+sistemas digitales, debido a que este permite la disminución de errores en 
+sistemas cuya susceptibilidad a tenerlos aumenta con el número de cambios de 
+bits entre números adyacentes; por ejemplo, evita las salidas erróneas de los 
+conmutadores electromecánicos y facilita la corrección de errores en sistemas 
+de comunicación digitales.
+
+En la presente práctica se construyeron diversos sistemas digitales, los 
+cuales se implementaron dentro del ambiente gráfico ofrecido por el entorno de 
+desarrollo \textit{Quartus II}, para analizar el comportamiento de cada uno de 
+estos y contrastar los resultados obtenidos de manera teórica con los 
+simulados.
 \end{document}
 
 

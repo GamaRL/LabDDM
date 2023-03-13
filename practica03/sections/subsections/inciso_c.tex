@@ -93,6 +93,80 @@ menos alguien más también quiere ir, entonces irán al cine; la única otra
 forma de ir al cine es cuando tanto Luis, Ana y el Papá quieren ir.
 
 \subsubsection{Implementación en Quartus}
+Los diagramas de bloques realizados conforme al comportamiento de la función 
+$c(lamp)$ son los siguientes.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{c_c}
+  \caption{Implementación de $c(lamp)$ (Sección C)}
+  \label{fig:c_c}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{c_complete}
+  \caption{Implementación completa (Sección C)}
+  \label{fig:c_complete}
+\end{figure}
 
+Con lo anterior, y haciendo uso de un archivo \textit{University Program VWF}, 
+se obtuvo el siguiente cronograma.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{c_sim}
+  \caption{Simulación del sistema (Sección C)}
+  \label{fig:c_sim}
+\end{figure}
+
+\subsection{Ejecución en la FPGA}
+Para poder cargar el programa en la tarjeta de desarrollo, fue importante 
+investigar los pines para tomar las entradas y mostrar las salidas 
+correctamente. Los pines utilizados se muestran en la Figura 
+\ref{fig:c_complete}. Para las entradas, se utilizaron los pines: PIN\_C12, 
+PIN\_D12, PIN\_C11 y PIN\_C10 (del bit más significativo al menos 
+significativo, respectivamente). Por otro lado, para las salidas se ocuparon 
+los pines: PIN\_A10, PIN\_A9 y PIN\_A8 (del bit más significativo al menos 
+significativo, respectivamente).
+
+Algunos casos de prueba se muestran a continuación.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1100 (12)}
+    \label{fig:c_tarj_1}
+    \includegraphics[width=\textwidth]{c_tarj_1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1110 (14)}
+    \label{fig:c_tarj_2}
+    \includegraphics[width=\textwidth]{c_tarj_2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1000 (15)}
+    \label{fig:c_tarj_3}
+    \includegraphics[width=\textwidth]{c_tarj_3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1101 (13)}
+    \label{fig:c_tarj_4}
+    \includegraphics[width=\textwidth]{c_tarj_4}
+  \end{subfigure}
+  \caption{Casos de prueba (Sección A)}
+\end{figure}
+
+Los casos de prueba se comportan según lo esperado:
+\begin{itemize}
+  \item Para el caso de \ref{fig:c_tarj_1}: Luis y Ana quieren ir, pero Papá y 
+  Mamá no. Hay un empate, entonces como la Mamá no quiere ir, no van.
+  \item Para el caso de \ref{fig:c_tarj_2}: Luis, Ana y su Mamá quieren ir al 
+    cine, como son mayoría, sí van.
+  \item Para el caso de \ref{fig:c_tarj_3}: Sólo Luis sí quiere ir al cine, 
+    como la mayoría no quiere ir, entonces no van.
+  \item Para el caso de \ref{fig:c_tarj_4}: Todos quieren ir al cine, menos la 
+    mamá, entonces sí van al cine porque gana la mayoría.
+\end{itemize}
 \end{document}
 

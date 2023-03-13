@@ -133,8 +133,111 @@ Desarrollando la expresión:
   }
 \end{equation*}
 
-
 \subsubsection{Implementación en Quartus}
+Para la implementación en la plataforma \textit{Quartus II}, se hizo uso de 
+los siguientes diagramas de bloques para implementar $f_1(cxyz)$, $f_2(cxyz)$ 
+y $f_3(cxyz)$.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{b_f1}
+  \caption{Implementación de $f_1(cxyz)$ (Sección B)}
+  \label{fig:b_f1}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{b_f2}
+  \caption{Implementación de $f_2(cxyz)$ (Sección B)}
+  \label{fig:b_f2}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{b_f3}
+  \caption{Implementación de $f_3(cxyz)$ (Sección B)}
+  \label{fig:b_f3}
+\end{figure}
 
+Adicionalmente, cada uno de estos bloques se estableció como un símbolo para 
+posteriormente unirse todo en un ``bloque principal'', el cual se muestra a 
+continuación.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{b_complete}
+  \caption{Implementación completa (Sección B)}
+  \label{fig:b_complete}
+\end{figure}
+
+De igual forma que en el sección anterior, se hizo uso de un archivo 
+\textit{University Program VWF} para simular el sistema, el resultado fue el 
+siguiente:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{b_sim}
+  \caption{Simulación del sistema (Sección B)}
+  \label{fig:b_sim}
+\end{figure}
+
+El cronograma obtenido en la simulación de la Figura \ref{fig:b_sim} describe 
+el comportamiento establecido en la Tabla \ref{tab:tv_b}.
+
+\subsection{Ejecución en la FPGA}
+Para poder cargar el programa en la tarjeta de desarrollo, fue importante 
+investigar los pines para tomar las entradas y mostrar las salidas 
+correctamente. Los pines utilizados se muestran en la Figura 
+\ref{fig:b_complete}. Para las entradas, se utilizaron los pines: PIN\_C12, 
+PIN\_D12, PIN\_C11 y PIN\_C10 (del bit más significativo al menos 
+significativo, respectivamente). Por otro lado, para las salidas se ocuparon 
+los pines: PIN\_A10, PIN\_A9 y PIN\_A8 (del bit más significativo al menos 
+significativo, respectivamente).
+
+Posteriormente, se volvió a compilar el proyecto para tener en cuenta la 
+asignación de pines realizada previamente. Se abrió la ventana 
+\textit{Programmer} y se cargó el archivo \textit{.sof}. A continuación, se 
+muestran algunos casos de prueba.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 0111 (7)}
+    \label{fig:b_tarj_1}
+    \includegraphics[width=\textwidth]{b_tarj_1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1100 (12)}
+    \label{fig:b_tarj_2}
+    \includegraphics[width=\textwidth]{b_tarj_2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 0100 (4)}
+    \label{fig:b_tarj_3}
+    \includegraphics[width=\textwidth]{b_tarj_3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \caption{Caso de prueba 1110 (14)}
+    \label{fig:b_tarj_4}
+    \includegraphics[width=\textwidth]{b_tarj_4}
+  \end{subfigure}
+  \caption{Casos de prueba (Sección B)}
+\end{figure}
+
+Los casos de prueba se comportan según lo esperado:
+\begin{itemize}
+  \item Para el caso de \ref{fig:b_tarj_1}: El número $111_{(b)}$ es 
+    $100_{(g)}$.
+  \item Para el caso de \ref{fig:b_tarj_2}: El número $100_{(g)}$ es 
+    $111_{(b)}$.
+  \item Para el caso de \ref{fig:b_tarj_3}: El número $100_{(b)}$ es 
+    $110_{(g)}$.
+  \item Para el caso de \ref{fig:b_tarj_4}: El número $100_{(g)}$ es 
+    $111_{(b)}$.
+\end{itemize}
+
+El caso de prueba de la Figura \ref{fig:b_tarj_2} es inverso al caso de prueba 
+de la Figura \ref{fig:b_tarj_1} y el caso de prueba de la Figura 
+\ref{fig:b_tarj_4} es inverso al caso de prueba de la Figura 
+\ref{fig:b_tarj_3}. Entonces, con los casos de prueba se verifica el 
+comportamiento en ambas direcciones del sistema de conversión.
 \end{document}
 
