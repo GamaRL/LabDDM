@@ -1,0 +1,64 @@
+%% %% %% %%
+%%
+%% Parte A de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\clearpage
+\subsection{Parte A}
+\subsubsection{Instrucciones}
+\begin{em}
+  Programar las funciones mostradas, en un formato SOP y POS mínimo (reducido) 
+  en forma flujo de datos, para su posterior simulación dentro de la 
+  plataforma \textit{Quartus II}.
+  \begin{itemize}
+    \item \textbf{Mediante POS}
+      \begin{equation*}
+        f(xyzt) = (x + \n{x}y + \overline{yt})(x + \overline{xy}\cdot z)
+      \end{equation*}
+    \item \textbf{Mediante SOP}
+      \begin{equation*}
+        f(uvtw) = vt(u+t\n{w})(u+\n{w})+wu(v+t)
+      \end{equation*}
+  \end{itemize}
+\end{em}
+
+Primero, se desarrollará la función $f(xyzt)$ a través de álgebra booleana 
+para encontrar una forma POS reducida:
+\begin{align*}
+  f(xyzt) &= (x + \n{x}y + \overline{yt})(x + \overline{xy}\cdot z)\\
+  &= (\cancel{(x+\n{x})}(x+y) + \overline{yt})(x + (\n{x}+\n{y})z)\\
+  &= \cancel{(x+y + \n{y} + \n{t})}(x + (\n{x}+\n{y})z)\\
+  &= \cancel{(x+\n{x}+\n{y})}(x+z)\\
+  &= (x+z)
+\end{align*}
+\begin{equation*}
+  \boxed{
+    \therefore f(xyzt) = (x+z)
+  }
+\end{equation*}
+
+Posteriormente, se desarrollará la función $f(wvtw)$ a través de álgebra 
+booleana para encontrar una forma SOP reducida:
+\begin{align*}
+  f(uvtw) &= vt(u+t\n{w})(u+\n{w})+wu(v+t)\\
+  &= vt(u+t)(u+\n{w})\cancel{(u+\n{w})}+wu(v+t)\\
+  &= vt(u+t)(u+\n{w})+wu(v+t)\\
+  &= vt(u+t\n{w})+wuv+wut\\
+  &= uvt+vt\n{w}+uvw+utw
+\end{align*}
+\begin{equation*}
+  \boxed{
+    \therefore f(uvtw) = uvt+vt\n{w}+uvw+utw
+  }
+\end{equation*}
+
+\subsubsection{Análisis}\label{subs:analisis_a}
+\subsubsection{Implementación en Quartus}\label{subs:a_imp}
+\subsubsection{Ejecución en la FPGA}
+\end{document}
+

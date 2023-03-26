@@ -1,0 +1,241 @@
+%% %% %% %%
+%%
+%% Previo de la práctica
+%% [No hubo previo]
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\subsection{Previo}
+\subsubsection*{Pregunta 1}
+\begin{em}
+  Obtener las formas mínimas SOP y POS al igual que las formas canónicas de 
+  las funciones combinacional representado por un sistema que tiene cuatro 
+  entradas: $a$, $b$, $c$ y $d$; y cuatro salidas: $w$, $x$, $y$ y $z$. La 
+  salida representa un número en código exceso-3 cuyo valor es igual al número 
+  de unos presentes en la entrada. Por ejemplo, si $abcd = 1101$, entonces la 
+  salida debe ser $wxyz = 0110$.
+\end{em}
+
+Obteniendo la tabla de verdad del comportamiento del sistema, se tiene que:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccc|cccc}
+    \hline
+    \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} & \textbf{w} & 
+    \textbf{x} & \textbf{y} & \textbf{z}\\
+    \hline
+    0	& 0	& 0	& 0	& 0	& 0	& 1	& 1\\
+    0	& 0	& 0	& 1	& 0	& 1	& 0	& 0\\
+    0	& 0	& 1	& 0	& 0	& 1	& 0	& 0\\
+    0	& 0	& 1	& 1	& 0	& 1	& 0	& 1\\
+    0	& 1	& 0	& 0	& 0	& 1	& 0	& 0\\
+    0	& 1	& 0	& 1	& 0	& 1	& 0	& 1\\
+    0	& 1	& 1	& 0	& 0	& 1	& 0	& 1\\
+    0	& 1	& 1	& 1	& 0	& 1	& 1	& 0\\
+    1	& 0	& 0	& 0	& 0	& 1	& 0	& 0\\
+    1	& 0	& 0	& 1	& 0	& 1	& 1	& 0\\
+    1	& 0	& 1	& 0	& 0	& 1	& 0	& 1\\
+    1	& 0	& 1	& 1	& 0	& 1	& 1	& 0\\
+    1	& 1	& 0	& 0	& 0	& 1	& 0	& 1\\
+    1	& 1	& 0	& 1	& 0	& 1	& 1	& 0\\
+    1	& 1	& 1	& 0	& 0	& 1	& 1	& 0\\
+    1	& 1	& 1	& 1	& 0	& 1	& 1	& 1\\
+    \hline
+  \end{tabular}
+  \caption{Comportamieto de $f(abcd)$ (Previo)}
+  \label{tab:previo_1}
+\end{table}
+
+De la tabla de verdad anterior se pueden obtener las formas \textit{SOP} o 
+\textit{POS} canónicas.
+
+\paragraph{Obteniendo $w$.} Por simple inspección sobre la tabla de verdad, se 
+tiene que:
+\begin{equation*}
+  \boxed{
+    \therefore w_{sop}(abcd) = 1
+  }
+\end{equation*}
+
+Y como conclusión también se tiene que:
+\begin{equation*}
+  \boxed{
+    \therefore w_{pos}(abcd) = 1
+  }
+\end{equation*}
+
+\paragraph{Obteniendo $x$.} A través de la inspección a la tabla de verdad se 
+pueden obtener los \textit{mintérminos}.
+\begin{equation*}
+  x_{sop}(abcd) = \sum_m (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+\end{equation*}
+
+La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
+Karnaugh}.
+\begin{figure}[H]
+  \centering
+  \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
+    \minterms{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+    \implicant{12}{10}
+    \implicant{4}{14}
+    \implicant{1}{11}
+    \implicant{3}{10}
+  \end{karnaugh-map}
+\end{figure}
+
+La lectura del mapa nos indica que:
+\begin{equation*}
+  \boxed{
+    \therefore x_{sop}(abcd) = a + b + c + d
+  }
+\end{equation*}
+
+Por otra parte, inspeccionando la tabla de verdad y obteniendo los 
+\textit{maxtérminos}, se tiene que:
+\begin{equation*}
+  x_{pos}(abcd) = \prod_M (0)
+\end{equation*}
+
+Con lo cual, se tiene que:
+\begin{equation*}
+  \boxed{
+    \therefore x_{pos}(abcd) = (a + b + c + d)
+  }
+\end{equation*}
+
+\paragraph{Obteniendo $y$.} A través de la inspección a la tabla de verdad se 
+pueden obtener los \textit{mintérminos} y \textit{maxtérminos}.
+\begin{equation*}
+  x_{sop}(abcd) = \sum_m (0,7,9,11,13,14,15)
+\end{equation*}
+
+La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
+Karnaugh}.
+\begin{figure}[H]
+  \centering
+  \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
+    \minterms{0,7,9,11,13,14,15}
+    \implicant{13}{11}
+    \implicant{15}{14}
+    \implicant{7}{15}
+    \implicant{0}{0}
+  \end{karnaugh-map}
+\end{figure}
+
+La lectura del mapa resulta en:
+\begin{equation*}
+  \boxed{
+    \therefore y_{sop} (abcd) = ad + bcd + abc + \n{a}\n{b}\n{c}\n{d}
+  }
+\end{equation*}
+
+Por otra parte, haciendo uso de los \textit{mastérminos}, se tiene que:
+\begin{equation*}
+    y_{pos}(abcd) = \prod_M (1,2,3,4,5,6,8,10,12)
+\end{equation*}
+
+La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
+Karnaugh}.
+\begin{figure}[H]
+  \centering
+  \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
+    \maxterms{1,2,3,4,5,6,8,10,12}
+    \implicant{12}{8}
+    \implicant{4}{5}
+    \implicant{1}{3}
+    \implicant{2}{6}
+    \implicantedge{8}{8}{10}{10}
+  \end{karnaugh-map}
+\end{figure}
+
+La lectura del mapa resulta en:
+\begin{equation*}
+  \boxed{
+    \therefore
+    y_{pos} (abcd) = (\n{a}+b+d) (\n{a}+c+d) (a+\n{b}+c) (a+b+\n{d}) 
+(a+\n{c}+d)
+  }
+\end{equation*}
+
+\paragraph{Obteniendo $z$.} A través de la inspección a la tabla de verdad se 
+pueden obtener los \textit{mintérminos}.
+\begin{equation*}
+  z_{sop}(abcd) = \sum_m (0,3,5,6,10,12,15)
+\end{equation*}
+
+La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
+Karnaugh}.
+\begin{figure}[H]
+  \centering
+  \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
+    \minterms{0,3,5,6,10,12,15}
+    \implicant{0}{0}
+    \implicant{3}{3}
+    \implicant{5}{5}
+    \implicant{6}{6}
+    \implicant{10}{10}
+    \implicant{12}{12}
+    \implicant{15}{15}
+  \end{karnaugh-map}
+\end{figure}
+
+La lectura del mapa resulta en:
+\begin{equation*}
+  z_{sop} (abcd) = \n{a}\n{b}\n{c}\n{d} + \n{a}\n{b}cd + \n{a}b\n{c}d + 
+  \n{a}bc\n{d} + a\n{b}c\n{d} + ab\n{c}\n{d} + abcd
+\end{equation*}
+
+Por otra parte, haciendo uso de los \textit{mastérminos}, se tiene que:
+\begin{equation*}
+  z_{pos}(abcd) = \prod_M (1,2,4,7,8,9,11,14)
+\end{equation*}
+
+La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
+Karnaugh}.
+\begin{figure}[H]
+  \centering
+  \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
+    \maxterms{1,2,4,7,8,9,11,14}
+    \implicant{8}{9}
+    \implicant{9}{11}
+    \implicantedge{1}{1}{9}{9}
+    \implicant{4}{4}
+    \implicant{2}{2}
+    \implicant{7}{7}
+    \implicant{14}{14}
+  \end{karnaugh-map}
+\end{figure}
+
+La lectura del mapa resulta en:
+\begin{equation*}
+  \scalebox{0.85}{
+    \boxed{
+      \therefore z_{pos} (abcd) = (\n{a}+b+c) (\n{a}+b+\n{d}) (b+c+\n{d}) 
+      (a+\n{b}+c+d) (a+\n{b}+\n{c}+\n{d}) (a+b+\n{c}+d) (\n{a}+\n{b}+\n{c}+d)
+    }
+  }
+\end{equation*}
+
+
+\subsubsection*{Pregunta 2}
+\begin{em}
+  ¿Qué son las bibliotecas, la entidad y la arquitectura en una estructura 
+  descrita en VHDL?
+\end{em}
+
+\subsubsection*{Pregunta 3}
+\begin{em}
+  Investiga cómo se realiza la asignación de una función o de un valor en 
+  VHDL.
+\end{em}
+
+\subsubsection*{Pregunta 4}
+\begin{em}
+  ¿Qué significa el termino concurrente dentro del lenguaje VHDL?
+\end{em}
+\end{document}
+
