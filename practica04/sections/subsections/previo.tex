@@ -9,7 +9,7 @@
 \graphicspath{{\subfix{../../images/}}}
 
 \begin{document}
-\subsection{Previo}
+\subsection{Previo} \label{subs:previo}
 \subsubsection*{Pregunta 1}
 \begin{em}
   Obtener las formas mínimas SOP y POS al igual que las formas canónicas de 
@@ -110,7 +110,7 @@ Con lo cual, se tiene que:
 \paragraph{Obteniendo $y$.} A través de la inspección a la tabla de verdad se 
 pueden obtener los \textit{mintérminos} y \textit{maxtérminos}.
 \begin{equation*}
-  x_{sop}(abcd) = \sum_m (0,7,9,11,13,14,15)
+  y_{sop}(abcd) = \sum_m (0,7,9,11,13,14,15)
 \end{equation*}
 
 La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
@@ -191,7 +191,7 @@ La lectura del mapa resulta en:
 
 Por otra parte, haciendo uso de los \textit{mastérminos}, se tiene que:
 \begin{equation*}
-  z_{pos}(abcd) = \prod_M (1,2,4,7,8,9,11,14)
+  z_{pos}(abcd) = \prod_M (1,2,4,7,8,9,11,13,14)
 \end{equation*}
 
 La simplificación se llevará a cabo con ayuda del método de \textit{Mapas de 
@@ -199,10 +199,11 @@ Karnaugh}.
 \begin{figure}[H]
   \centering
   \begin{karnaugh-map}[4][4][1][$d$][$c$][$b$][$a$]
-    \maxterms{1,2,4,7,8,9,11,14}
+    \maxterms{1,2,4,7,8,9,11,13,14}
     \implicant{8}{9}
-    \implicant{9}{11}
+    \implicant{13}{9}
     \implicantedge{1}{1}{9}{9}
+    \implicant{9}{11}
     \implicant{4}{4}
     \implicant{2}{2}
     \implicant{7}{7}
@@ -212,10 +213,11 @@ Karnaugh}.
 
 La lectura del mapa resulta en:
 \begin{equation*}
-  \scalebox{0.85}{
+  \scalebox{0.77}{
     \boxed{
-      \therefore z_{pos} (abcd) = (\n{a}+b+c) (\n{a}+b+\n{d}) (b+c+\n{d}) 
-      (a+\n{b}+c+d) (a+\n{b}+\n{c}+\n{d}) (a+b+\n{c}+d) (\n{a}+\n{b}+\n{c}+d)
+      \therefore z_{pos} (abcd) = (\n{a}+c+\n{d})(\n{a}+b+c) (\n{a}+b+\n{d}) 
+      (b+c+\n{d}) (a+\n{b}+c+d) (a+\n{b}+\n{c}+\n{d}) (a+b+\n{c}+d) 
+      (\n{a}+\n{b}+\n{c}+d)
     }
   }
 \end{equation*}
@@ -226,6 +228,39 @@ La lectura del mapa resulta en:
   ¿Qué son las bibliotecas, la entidad y la arquitectura en una estructura 
   descrita en VHDL?
 \end{em}
+
+\paragraph{Biblioteca.} Se trata de un paquete de código pre-programado por 
+alquién más y al cual tenemos acceso para hacer uso de sus tipos de datos, 
+funciones, etc.
+
+\paragraph{Entidad.} Una entidad es la abstracción de un circuito, ya sea 
+desde un complejo sistema electrónico o una simple puerta lógica. La 
+entidad únicamente describe la forma externa del circuito, en ella se 
+enumeran las entradas y las salidas del diseño. Una entidad es análoga a 
+un símbolo esquemático en los diagramas electrónicos, el cual describe las 
+conexiones del  dispositivo hacia el resto del diseño.
+\begin{itemize}
+  \item Define externamente al circuito o subcircuito.
+  \item Nombre y número de puertos, tipos de datos de entrada y salida.
+  \item Tienes toda la información necesaria para conectar tu circuito a 
+    otros circuitos.
+\end{itemize}
+Además, en la entidad se pueden definir unos valores genéricos (generic) que 
+se utilizarán para declarar propiedades y constantes del circuito, 
+independientemente de cual sea la arquitectura.
+
+\paragraph{Arquitectura.} Una arquitectura describe el funcionamiento de la 
+entidad a la que hace referencia, es decir, dentro de architecture tendremos 
+que describir el funcionamiento de la entidad a la que está asociada 
+utilizando las sentencias y expresiones propias de VHDL.
+\begin{itemize}
+  \item Define internamente el circuito.
+  \item Señales internas, funciones, procedimientos, constantes.
+  \item La descripción de la arquitectura puede ser estructural o por 
+    comportamiento.
+\end{itemize}
+El código VHDL propiamente se escribe dentro del segmento de código 
+\textit{architecture}.
 
 \subsubsection*{Pregunta 3}
 \begin{em}
