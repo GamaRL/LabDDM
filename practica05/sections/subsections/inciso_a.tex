@@ -75,7 +75,7 @@ vector de salida \texttt{res}.
 -- Implementacion: Full Adder (Parte A)
 entity FA is
 	port(
-		ent	:in	std_logic_vector(2 downto 0);
+    ent	:in	  std_logic_vector(2 downto 0);
 		res	:out	std_logic_vector(1 downto 0)
 	);
 end entity;
@@ -83,9 +83,9 @@ end entity;
 architecture Behave of FA is
 	signal a, b, ci	:std_logic;
 begin
-	a <= ent(2);
-	b <= ent(1);
-	ci <= ent(0);
+  a   <= ent(2);
+  b   <= ent(1);
+  ci  <= ent(0);
   res <= (
     a xor b xor ci,
     (ci and (a xor b)) or (a and b)
@@ -184,8 +184,15 @@ tienen $c_i = 1$. El resultado es el siguiente:
 En la Figura \ref{fig:inciso_a_sim} se puede comprobar el correcto 
 funcionamiento del sumador.
 
-Es importante recalcar el uso de las declaraciones \texttt{port map}, a través 
-de los cuales se asignan las entradas y las salidas de una entidad. De igual 
-forma.
-
+Es importante recalcar el uso de las nuevas herramientas que vimos en clase.  
+Primero, se puede ver la utilización de una entidad dentro de otra entidad 
+(como es el caso de \texttt{FA} dentro de \texttt{Addder4}). Fue importante 
+utilizar la declaración del componente \textit{FA} dentro de \texttt{Adder4} 
+(similar a una importación en otros lenguajes de programación). Se deben crear 
+varias instanicias de este mismo tipo (\texttt{adder\_0}, \texttt{adder\_1}, 
+\texttt{adder\_2} y \texttt{adder\_3}), cada una de las cuales se encarga de 
+calcular un bit en específico. Para poder declarar cada una de ellas de forma 
+adecuada, es necesario hacer un mapeo de puertos a través de la instrucción 
+\texttt{port map}. En la cual se tienen que asignar los valores de las 
+entradas y también, a través de este, se asignan las salidas.
 \end{document}

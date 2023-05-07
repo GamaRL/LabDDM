@@ -10,6 +10,165 @@
 \begin{document}
 \clearpage
 \subsection{Parte B}
-\subsubsection{Instrucciones}
+\begin{em}
+  Diseñar mediante la programación estructurada la implementación de una unidad 
+  lógica-aritmética binaria de dos palabras de 4 bits, como se muestra en la 
+  siguiente tabla:
+\end{em}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc|c|c}
+    $s_1$ & $s_0$ & $c_i$ & Aritmético ($M=0$) & Lógico ($M=1$)\\
+    \hline
+    0 & 0 & 0 & $A$ & $A \cdot B$\\
+    0 & 0 & 1 & $A+1$ & $A + B$\\
+    0 & 1 & 0 & $A+B$ & $\n{A}$\\
+    0 & 1 & 1 & $A+B+1$ & $A \oplus B$\\
+    1 & 0 & 0 & $A+\n{B}$ & $\nt{A + B}$\\
+    1 & 0 & 1 & $A+\n{B}+1(A-B)$ & $\nt{A \cdot B}$\\
+    1 & 1 & 0 & $A-1$ & $B$\\
+    1 & 1 & 1 & $A$ & $\n{A} \cdot B$
+  \end{tabular}
+  \caption{Tabla de verdad del funcionamiento de la ALU}
+\end{table}
+
+Para comenzar esta sección, fue importante hacer uso de las siguientes tablas 
+(poroporcionadas en el planteamiento de la práctica) para llevar a cabo la 
+impelemntación de la unidad aritmética.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{p{1cm}p{1cm}p{1cm}|p{2cm}|p{2cm}|p{6cm}}
+    \hline
+    \multicolumn{3}{p{3cm}|}{\textbf{Selector}} & \textbf{Salida Ni} & 
+    \textbf{Función} & \textbf{Descripción}\\
+    \hline
+    $s_1$ & $s_0$ & $c_i$ & $N_i$ & $F$\\
+    \hline
+    0 & 0 & 0 & 0 & $A$ & Transferir $A$\\
+    0 & 0 & 1 & 0 & $A + 1$ & Incrementar $A$\\
+    0 & 1 & 0 & $B$ & $A + B$ & Sumar o agregar $B$ a $A$\\
+    0 & 1 & 1 & $B$ & $A + B + 1$ & Suma con acarreo\\
+    1 & 0 & 0 & 0 & $A + \n{B}$ & Agregar $C_1(B)$ a $A$\\
+    1 & 0 & 1 & 0 & $A + \n{B} + 1$ & Agregar $C_2(B)$ a $A$\\
+    1 & 1 & 0 & Todos $1$ & $A - 1$ & Decrementar $A$\\
+    1 & 1 & 1 & Todos $1$ & $A$ & Transferir $A$\\
+  \end{tabular}
+  \caption{Tabla de verdad del funcionamiento de la UL}
+  \label{tab:ua_func}
+\end{table}
+
+Simplificando un poco la información brindada por la tabla anterior,se tiene 
+que:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cc|c}
+    \hline
+    $s_1$ & $s_0$ & $N_i$\\
+    \hline
+    0 & 0 & 0\\
+    0 & 1 & $B$\\
+    1 & 0 & $\n{B}$\\
+    1 & 1 & $1$
+  \end{tabular}
+\end{table}
+
+Con lo cual se tiene la expresión:
+\begin{align*}
+  N_i (s_1 s_0) &= \cancel{\n{s_1} \n{s_0} (0)} + \n{s_1} s_0 (B) + s_1 
+  \n{s_0} (\n{B}) + s_1 s_0 (1)\\
+  &= \n{s_1} s_0 B + s_1 \n{s_0} \n{B} + s_1 s_0\\
+  &= (\n{s_1} s_0 B + s_1 s_0) + (s_1 \n{s_0} \n{B} + s_1 s_0)\\
+  &= s_0 (\n{s_1} B + s_1) + s_1 (\n{s_0} \n{B} + s_0)\\
+  &= s_0 \cancel{(\n{s_1} + s_1)} (B + s_1) + s_1 \cancel{(\n{s_0}+s_0)}\\
+  &= s_0 (B + s_1) + s_1 (\n{B} + s_0)\\
+  &= s_0 B  + s_1 \n{B} + s_0 s_1\\
+  &= s_0 B  + s_1 \n{B} + s_0 s_1 (B + \n{B})\\
+  &= s_0 B  + s_1 \n{B} + s_0 s_1 B + s_0 s_1 \n{B}\\
+  &= s_0 B (s_1 + 1)  + s_1 \n{B} (s_0 + 1)\\
+  &= s_0 B + s_1 \n{B}
+\end{align*}
+\begin{equation*}
+  \boxed{
+    \therefore N_i (s_1 s_0) = s_0 B + s_1 \n{B}
+  }
+\end{equation*}
+
+Entonces, se contruyó la Unidad Aritmética haciendo uso de cuatro \textit{Full 
+Adder}, para los cuales se operó por un lado con $a_i$ y por el otro con el 
+resultado de $N_i = s_0 b_i + s_1 \n{b_i}$, tal como se muestra en el 
+siguiente fragmento de código.
+
+\begin{lstlisting}[language=VHDL]
+-- Implementacion de la Unidad Aritmetica
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity UA is
+	port(
+    a,b		:in	std_logic_vector(3 downto 0);
+		sel		:in	std_logic_vector(2 downto 0);
+		res		:out	std_logic_vector(4 downto 0)
+	);
+end entity;
+
+architecture Behave of UA is
+	component FA is
+		port(
+			ent	:in	std_logic_vector(2 downto 0);
+			res	:out	std_logic_vector(1 downto 0)
+		);
+	end component;
+	
+	signal c :std_logic_vector(2 downto 0);
+	signal n	:std_logic_vector(3 downto 0);
+begin
+	n <= (
+		(sel(1) and b(3)) or (sel(2) and not b(3)),
+		(sel(1) and b(2)) or (sel(2) and not b(2)),
+		(sel(1) and b(1)) or (sel(2) and not b(1)),
+		(sel(1) and b(0)) or (sel(2) and not b(0))
+	);
+
+	op_0	:FA port map(
+		ent => (a(0), n(0), sel(0)),
+		res(1) => res(0),
+		res(0) => c(0)
+	);
+	
+	op_1	:FA port map(
+		ent => (a(1), n(1), c(0)),
+		res(1) => res(1),
+		res(0) => c(1)
+	);
+	
+	op_2	:FA port map(
+		ent => (a(2), n(2), c(1)),
+		res(1) => res(2),
+		res(0) => c(2)
+	);
+	
+	op_3	:FA port map(
+		ent => (a(3), n(3), c(2)),
+		res(1) => res(3),
+		res(0) => res(4)
+	);
+end;
+\end{lstlisting}
+
+Tal como se puede ver, se tienen las entradas $a$ y $b$ (con las cuales se 
+operará) y una configuración de selección $sel(3)$, la cual es un vector que 
+almacena la entrada de selección mostrada en la Tabla \ref{tab:ua_func}.  Se 
+hace uso de una señan $n$ para calcular los valores de las respectivas $N_i$ y 
+posteriormente se hace udo de los \textbf{Full Adder} $op\_0$, $op\_1$, 
+$op\_2$ y $op\_3$ para conformar el resultado de la operación seleccionada, el 
+cual se almacena en una palabra de cinco bits: $res(5)$.
+
+Es importante mencionar que la entrada de selección ya incluye el bit de 
+acarrero de entrada, el cual será el bit menos significativo, acorde a lo 
+establecido en la Tabla \ref{tab:ua_func}.
+
+
+
+
 \end{document}
 
