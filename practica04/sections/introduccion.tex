@@ -10,5 +10,43 @@
 \begin{document}
 \clearpage
 \section{Introducción}
+El lenguaje \textit{VHDL} (\textit{Very High Speed Integrates Circuit Hardware 
+Description Language}) es un lenguaje de descripción de circuitos electrónicos 
+digitales que utiliza distintos niveles de abstracción. \textit{VHDL} nació 
+como una manera estándar de documentar circuitos; desarrollado por el gobierno 
+de Estados Unidos en la década de los 80’s.
+
+De manera particular, es un lenguaje que permite tanto una descripción de la 
+estructura del circuito (descripción a partir de subcircuitos más sencillos), 
+como la especificación de la funcionalidad del circuito utilizando formas 
+familiares a los lenguajes de programación.
+
+Los circuitos descritos en \textit{VHDL} pueden ser simulados utilizando 
+herramientas que reproducen el funcionamiento del circuito descrito; la misión 
+más importante de un lenguaje de descripción HW es que sea capaz de simular 
+perfectamente el comportamiento lógico de un circuito sin que el programador 
+necesite imponer restricciones.
+
+Un circuito o subcircuito descrito mediante \textit{VHDL} se denomina diseño 
+de entidad (design entity). Está compuesto por dos partes: la declaración de 
+la entidad, entity, (donde se declaran las señales de entrada y salida, por lo 
+tanto es el modelo de interfaz con el exterior) y la arquitectura, 
+architecture (donde se definen los detalles del circuito, es decir, es la 
+especificación del funcionamiento de una entidad).
+
+Por otro lado están las bibliotecas, donde se almacenan los elementos de 
+diseño: tipos de datos, operadores, componentes, funciones, etc...
+Hay dos bibliotecas que siempre son visibles por defecto: std (la estándar) y 
+work (la de trabajo) y que no es necesario declarar.
+
+Los elementos de las bibliotecas se organizan en paquetes o bibliotecas 
+(Packages) y hay que declararlos para poder utilizarlos dentro de la 
+construcción de los circuitos.
+
+A lo largo de la presente práctica se han implementado, a través del lenguaje 
+\textit{VHDL}, diversos circuitos que se diseñaron previamente mediante 
+herramientas gráficas proporcionadas por el entorno de desarrollo; como se 
+verá, es posible obtener equivalencias en los resultados mediante ambas 
+implementaciones.
 \end{document}
 

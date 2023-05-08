@@ -252,14 +252,14 @@ independientemente de cual sea la arquitectura.
 \paragraph{Arquitectura.} Una arquitectura describe el funcionamiento de la 
 entidad a la que hace referencia, es decir, dentro de architecture tendremos 
 que describir el funcionamiento de la entidad a la que está asociada 
-utilizando las sentencias y expresiones propias de VHDL.
+utilizando las sentencias y expresiones propias de \textit{VHDL}.
 \begin{itemize}
   \item Define internamente el circuito.
   \item Señales internas, funciones, procedimientos, constantes.
   \item La descripción de la arquitectura puede ser estructural o por 
     comportamiento.
 \end{itemize}
-El código VHDL propiamente se escribe dentro del segmento de código 
+El código \textit{VHDL} propiamente se escribe dentro del segmento de código 
 \textit{architecture}.
 
 \subsubsection*{Pregunta 3}
@@ -268,9 +268,33 @@ El código VHDL propiamente se escribe dentro del segmento de código
   VHDL.
 \end{em}
 
+Para hacer una asignación a una función (o señal) deberemos usar el operador 
+\texttt{<=}, colocando el identificador de la señal a asignar a la izquierda y 
+el valor que esta debe tomar a la derecha; tal como se muestra en la siguiente 
+expresión:
+
+\begin{lstlisting}[language=VHDL]
+  signal <= signal1 + signal2;
+\end{lstlisting}
+
 \subsubsection*{Pregunta 4}
 \begin{em}
   ¿Qué significa el termino concurrente dentro del lenguaje VHDL?
 \end{em}
+
+Las sentencias concurrentes son aquellas que se ejecutan simultáneamente en la 
+simulación, es decir, no existe una prioridad entre unas u otras. Se utilizan 
+para el modelado del hardware porque describen adecuadamente su 
+comportamiento. Deben de formar parte siempre del cuerpo de arquitecturas o de 
+bloques.  Las sentencias concurrentes, como su nombre indica, se deben evaluar 
+simultáneamente. Y por lo tanto el orden en que se escriben dentro del módulo 
+que las aloja es totalmente irrelevante. Dicho de otra forma, cualquiera que 
+sea el orden de un mismo conjunto de sentencias concurrentes, estas deben 
+acabar produciendo el mismo resultado.
+
+Algunos ejemplos de sentencias concurrentes se listan a continuación: 
+procesos, asignaciones concurrentes a señal, llamadas concurrentes a 
+procedimientos, bloques, instanciaciones de componentes, sentencias 
+\textit{assert-report} y sentencias \textit{generate}.
 \end{document}
 
