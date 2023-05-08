@@ -1,7 +1,6 @@
 %% %% %% %%
 %%
 %% Previo de la práctica
-%% [No hubo previo]
 %%
 %% %% %% %%
 
@@ -51,6 +50,8 @@ los siguientes casos en función de los bits de entrada $x_n$:
     1 & 1 & 0 & $x_2$ & $x_1$ & $x_0$ & 0    \\
     1 & 1 & 1 & $x_2$ & $x_1$ & $x_0$ & $x_3$
   \end{tabular}
+  \caption{Funcionamiento (Desplazador-Rotador)}
+  \label{tab:previo1_func}
 \end{table}
 
 Los casos que devuelven $0$ se encuentran en los extremos ya que únicamente 
@@ -153,6 +154,42 @@ de \textbf{seis multiplexores}.
 \begin{em}
   Construir un convertidor a siete segmentos de su respectivo número de cuenta
 \end{em}
+
+Para realizar este convertidor, se tienen que considerar únicamente dígitos 
+decimales (0 al 9).
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth]{display7seg}
+  \caption{Diagrama de un display de 7 segmentos}
+  \label{fig:display7seg}
+\end{figure}
+
+Considerando el diagrama establecido en la Figura \ref{fig:display7seg}, se 
+puede establecer la siguiente tabla de verdad. En la cual se toma una palabra 
+de 4 bits y se devuelve una palabra de 8 bits (los 7 segmentos y el DP).
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccc|ccccccccc}
+    \hline
+    $x_3$ & $x_2$ & $x_1$ & $x_0$ & $p$ & $g$ & $f$ & $e$ & $d$ & $c$ & $b$ & $a$\\
+    \hline
+    0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 1\\
+    0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1\\
+    0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0\\
+    0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+    0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0\\
+    1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0
+  \end{tabular}
+  \caption{Funcionamiento (Display de 7 segmentos)}
+  \label{tab:previo2_func}
+\end{table}
+
+Con lo cual el decodificador nesesario para convertir un número de cuenta a 7 
+segmentos queda implementado.
 
 \end{document}
 
