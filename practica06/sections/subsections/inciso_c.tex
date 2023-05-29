@@ -1,0 +1,89 @@
+%% %% %% %%
+%%
+%% Parte C de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\clearpage
+\subsection{Parte C}
+\subsubsection*{Propuesta}
+\begin{em}
+  Se proopone hacer un divisor de frecuencias complementario. Para esto, se 
+  considerará un periodo de $350 [ms]$ (tal como en la actividad anterior).
+\end{em}
+
+\subsection*{Solución}
+Para realizar dos señales que se complementen, se necesitan tener ciclos de 
+trabajo complementarios: Por ejemplo, se puede tener $d_1 = 5\%$ y $d_2 = 
+95\%$. De esta forma, cuando una señal esté prendida, la otra estará apagada 
+(alternando este comportamiento entre ambas).
+
+Con los cálculos de la sección anterior, se tiene:
+\[ n = 17500000 \]
+
+Calculando los valores de $q$, se tiene que:
+\begin{itemize}
+  \item $p_{(5\%)}  = (1 - 0.05) 17500000 = 16625000$
+  \item $p_{(95\%)} = (1 - 0.95) 17500000 =   875000$
+\end{itemize}
+
+Con lo anterior, únicamente, se tiene que contruir una entidad con ambas 
+salidas:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity ParteC is
+	port(
+		clk50MHz:	in std_logic;
+		clk05: 		out std_logic;
+		clk95: 		out std_logic
+	);
+end entity;
+
+architecture Behave of ParteC is
+	component DivFreq is
+		generic(off_time: integer);
+		port(
+			reloj: in std_logic;
+			clk:	out std_logic
+		);
+	end component;
+	
+	component Mux8_1 is
+		port(
+			n: in std_logic_vector(7 downto 0);
+			s:	in std_logic_vector(2 downto 0);
+			o: out std_logic
+		);
+	end component;
+	
+	signal s: std_logic_vector(7 downto 0);
+begin
+	df0 :DivFreq
+		generic map(off_time => 16625000)
+		port map(
+			reloj => clk50MHz,
+			clk => clk05
+		);
+	
+	df1 :DivFreq
+		generic map(off_time => 875000)
+		port map(
+			reloj => clk50MHz,
+			clk => clk95
+		);
+end;
+\end{lstlisting}
+
+Al llevarlo a la tarjeta, se observa que mientras un LED enciende un corto 
+periodo de tiempo (permanece apagado mucho tiempo), el otro LED enciede un 
+largo periodo de tiempo (permanece apagado poco tiempo). Y justamente, 
+mientras uno de los LED se enciende, el otro se apaga.
+
+\end{document}
+

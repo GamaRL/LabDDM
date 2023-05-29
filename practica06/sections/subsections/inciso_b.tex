@@ -1,0 +1,198 @@
+%% %% %% %%
+%%
+%% Parte B de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\clearpage
+\subsection{Parte B}
+\begin{em}
+  Constuir un divisor de frecuencias variable para ciclos de trabajo:
+  \begin{itemize}
+      \item 8\%
+      \item 15\%
+      \item 37\%
+      \item 66\%
+      \item 88\%
+  \end{itemize}
+
+  Considere un periodo de $350 [ms]$.
+\end{em}
+
+Para realizar este programa, primero se hicieron una serie de cálculos.  
+Tomando $f_1 = 50 [MHz]$ y $T_2 = 350 [ms]$, entonces, se tiene que:
+\[ f_2 = \frac{1}{T_2} = \frac{1}{350 [ms]} \approx 2.85714285714286 [Hz]\]
+
+Con lo anterior, se tiene que:
+\[ n = \frac{f_1}{f_2} = \frac{50 [MHz]}{2.85714285714286 [Hz]} = 17500000 \]
+
+Con lo anterior, se requeiren contar $17500000$ ciclos de $50 [MHz]$ para 
+poder generar una iteración de una señal de $350 [ms]$. Ahora, tenemos que ver 
+cuál será el ciclo de trabajo.
+
+Por facilidad, la señalización se supone comienza en bajo. Por ello, es más 
+cómodo contar el tiempo en el que se mantiene abajo ($p$) y no el tiempo que 
+se mantiene arriba $q$.  Si se sabe que:
+\[ d = \frac{q}{n} \Rightarrow q = n \cdot d \Rightarrow p = (1 - d) n\]
+
+Con lo que se tiene:
+\begin{itemize}
+  \item $p_{(8\%)}  = (1 - 0.08) 17500000 = 16100000$
+  \item $p_{(15\%)} = (1 - 0.15) 17500000 = 14875000$
+  \item $p_{(37\%)} = (1 - 0.37) 17500000 = 11025000$
+  \item $p_{(66\%)} = (1 - 0.66) 17500000 =  5950000$
+  \item $p_{(88\%)} = (1 - 0.88) 17500000 =  2100000$
+\end{itemize}
+
+Con estos valores, se procedió a crear una entidad general para todas, la cual 
+a través de un parámetro se pudiera configurar. La entidad creada fue:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity DivFreq is
+	generic(off_time: integer);
+	port(
+		reloj: in std_logic;
+		clk:	out std_logic
+	);
+end entity;
+
+architecture Behave of DivFreq is
+	constant max: integer := 17500000;
+	signal count: integer range 0 to max;
+begin
+	process
+	begin
+		wait until reloj'event and reloj = '1';
+		
+		if count < max then
+			count <= count + 1;
+		else
+			count <= 0;
+		end if;
+		
+		if count < off_time then
+			clk <= '0';
+		else
+			clk <= '1';
+		end if;
+	end process;
+end;
+\end{lstlisting}
+
+Tal como se puede ver, se tiene el parámetro \texttt{off\_time}, a través del 
+cual se le indica el número de ciclos que debe mantenerse apagado. Esto se 
+puede integrar a través de un multiplexor 4:1, tal como se muestra a 
+continuación:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Mux8_1 is
+	port(
+		n: in std_logic_vector(7 downto 0);
+		s:	in std_logic_vector(2 downto 0);
+		o: out std_logic
+	);
+end entity;
+
+architecture Behave of Mux8_1 is
+begin
+	with s select
+	o <=
+		n(0) when "000",
+		n(1) when "001",
+		n(2) when "010",
+		n(3) when "011",
+		n(4) when "100",
+		n(5) when "101",
+		n(6) when "110",
+		n(7) when "111";
+end;
+\end{lstlisting}
+
+Finalmente, todo se unió en una entidad adicional:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Ejercicio is
+	port(
+		reloj:	in std_logic;
+		f:	in std_logic_vector(2 downto 0);
+		o: out std_logic
+	);
+end entity;
+
+architecture Behave of Ejercicio is
+	component DivFreq is
+		generic(off_time: integer);
+		port(
+			reloj: in std_logic;
+			clk:	out std_logic
+		);
+	end component;
+	
+	component Mux8_1 is
+		port(
+			n: in std_logic_vector(7 downto 0);
+			s:	in std_logic_vector(2 downto 0);
+			o: out std_logic
+		);
+	end component;
+	
+	signal s: std_logic_vector(7 downto 0);
+begin
+	df0 :DivFreq
+		generic map(off_time => 16100000)
+		port map(
+			reloj => reloj,
+			clk => s(0)
+		);
+	
+	df1 :DivFreq
+		generic map(off_time => 14875000)
+		port map(
+			reloj => reloj,
+			clk => s(1)
+		);
+	
+	df2 :DivFreq
+		generic map(off_time => 11025000)
+		port map(
+			reloj => reloj,
+			clk => s(2)
+		);
+	
+	df3 :DivFreq
+		generic map(off_time => 5950000)
+		port map(
+			reloj => reloj,
+			clk => s(3)
+		);
+	
+	df4 :DivFreq
+		generic map(off_time => 2100000)
+		port map(
+			reloj => reloj,
+			clk => s(4)
+		);
+	
+	mux :Mux8_1 port map(
+		n => s,
+		s => f,
+		o => o
+	);
+end;
+\end{lstlisting}
+
+De forma general, se puede ver que se constroyeron cinco divisores de 
+frecuencia (con los parámetros calculados anteriormente). De estas señales, 
+únicamente se selecciona una señal a través el multiplexor 4:1 y se manda a la 
+salida de la entidad.
+\end{document}

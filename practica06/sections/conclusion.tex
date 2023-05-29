@@ -1,0 +1,34 @@
+%% %% %% %%
+%%
+%% Conclusiones de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{./img/}}}
+
+\begin{document}
+\clearpage
+\section{Conclusiones}
+\paragraph{Ríos Lira, Gamaliel.} Con la realización de la prácticas, se 
+completó satisfactoriamente el objetivo planteado al comienzo de la misma. Se 
+comprendió cómo utlizar un contador para realizar un divisor de frecuencias.  
+Con esto, es posible manejar procesos a un nivel más apto para el 
+entendimiento humano (frecuencias pequeñas y periodos grandes). De no ser de 
+esta forma, los sitemas que tendríamos ejecutarían millones de veces por 
+segundo sin que nosotros nos diéramos cuenta.
+
+La implementación a través del lenguaje \textit{VHDL} me pareció muy sencilla 
+en comparación con la implementación directamente digital, lo cual representa 
+una gran ventaja. La única limitante que encuentro es que el reloj de $50 
+[MHz]$ oscila muy rápido y se necesitan contadores muy grandes para obtener el 
+divisor de frecuencias.
+
+Finalmente, no agregué algún mecanismo de comprobación de las señales 
+solicitadas ya que no es posible agregar el comportamiento de la FPGA a través 
+de algún tipo de foto y una simulación no es factible por la catidad de 
+oscilaciones que se requieren para completar un ciclo. Aún así, el código se 
+adjunta para su comprobación en la tarjeta ---de ser necesario---.
+%\paragraph{Vélez Grande, Cinthya.}
+\end{document}
+

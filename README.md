@@ -5,7 +5,8 @@
 2. [Construcción de funciones booleanas en la plataforma Quartus II, en modo gráfico](practica02/)
 3. [Aplicación de Funciones Lógicas](practica03/)
 4. [Lenguaje de descripción de hardware VHDL](practica04/)
-4. [Construcción de bloques estructurados por mapeo de puertos](practica05/)
+5. [Construcción de bloques estructurados por mapeo de puertos](practica05/)
+6. [Divisores en frecuencia](practica06/)
 
 ## Estructura de cada práctica
 - `build/`: En este directorio se coloca la compilación de `LaTeX`.

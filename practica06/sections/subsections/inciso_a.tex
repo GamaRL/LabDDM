@@ -1,0 +1,172 @@
+%% %% %% %%
+%%
+%% Parte A de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\clearpage
+\subsection{Parte A}
+\subsubsection{Divisor de frecuencia a 0.662 Hz}
+\begin{em}
+  Implimentar un divisor de frequencias a $0.662 [Hz]$.
+\end{em}
+
+Para realizar esta actividad, se analizó el siguiente código:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity ParteA1 is
+	port(
+		clk50MHz	:in std_logic;
+		clk		:out std_logic
+	);
+end entity;
+
+architecture Behave of ParteA1 is
+begin
+	process(clk50MHz)
+		variable count: unsigned(27 downto 0) := x"0000000";
+	begin
+		if rising_edge(clk50MHz) then
+			if count = x"48009E0" then
+				count := x"0000000";
+			else
+				count := count + 1;
+			end if;
+		end if;
+		clk <= count(26);
+	end process;
+end;
+\end{lstlisting}
+
+Se se quiere una frecuencias de $f_2 = 0.662 [Hz]$, tomando como señal de 
+reloj base una a $f_1 = 50 [MHz]$, entonces se tiene que:
+\begin{align*}
+  f_1 &= 50 [MHz] & f_2 &= 0.662 [Hz]\\
+  \Rightarrow T_1 &= \frac{1}{50 [MHz]} & \Rightarrow T_2 &= \frac{1}{0.662 
+  [Hz]}\\
+  &= 20 [ns] & &\approx 1.51 [s]
+\end{align*}
+
+Lo anterior, nos indica que necesitamos contar $1.51 [s]$ a través de una 
+señal de $20 [ns]$. Realizando la división:
+\[n = \frac{1.51 [s]}{20 [ns]} = 75500000\]
+
+Este número en hexadecimal justamente es:
+\[n = 48009E0_{(16)}\]
+
+Tal como se muestra en la línea 18 del código. Lo que se hace es contar los 
+flancos en los que hay transiciones de $0$ a $1$ para el reloj de $50 [MHz]$.  
+Con esto, se conforma el periodo de la señal. Sin embargo, se necesita subir y 
+bajar la señal (para conformar un perido completo). Lo que se hace es elevar 
+la señal de $0$ a $1$ cuando la cuenta llega al número:
+\[p = 4000000_{(16)}\]
+
+Con lo anterior, el tiempo que la señal se mantiene activa es:
+\[q = 48009E0_{(16)} - 4000000_{(16)} = 8009E0_{(16)}\]
+
+Entonces, el ciclo de trabajo es:
+\[d = \frac{8009E0_{(16)}}{4000000_{(16)}} = 0.12503767\]
+\[\Rightarrow d \approx 12.5 \%\]
+
+\subsubsection{Divisor de frecuencia a 0.662 Hz}
+\begin{em}
+  Implimentar un divisor de frequencias a $1 [Hz]$.
+\end{em}
+
+Para realizar esta actividad, se analizó el siguiente código:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity ParteA1 is
+	port(
+		clk50MHz	:in std_logic;
+		clk		:out std_logic
+	);
+end entity;
+\end{lstlisting}
+
+Si se requiere una señal con $T_2 = 1 [s]$ tomando como base una señal con 
+$f_1 = 50 [MHz]$ (o bien $T_1 = 20 [ns]$, tal como ya se calculó). La relación 
+entre ambas es:
+\[n = \frac{1[s]}{20 [ns]} = 50000000\]
+
+Por lo tanto, únicamente se tienen que contar $50000000$ flancos ascendentes.  
+Además, en este caso, se tiene una señal que se mantiene tanto arriba como 
+abajo el mismo tiempo:
+\[p = q = 25000000\]
+
+Con lo cual, se tiene un ciclo de trabajo de:
+\[d = 50\%\]
+
+\subsubsection{Divisor de frecuencia a 200 Hz}
+\begin{em}
+  Implementar un divisor de frecuencias a $200 [Hz]$.
+\end{em}
+
+Para esto, se utilizó el siguiente código:
+\begin{lstlisting}[language=vhdl]
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity ParteA3 is
+	generic(
+    limit	:integer := 124999
+	);
+	port(
+		input	:in std_logic;
+		reset	:in std_logic;
+		output:out std_logic
+	);
+end entity;
+
+architecture Behave of ParteA3 is
+	signal counter: integer range 0 to limit := 0;
+begin
+	process(reset, input)
+		variable tmp: std_logic;
+	begin
+		if (reset = '1') then
+			tmp := '0';
+			counter <= 0;
+		elsif rising_edge(input) then
+			if (counter = limit) then
+				tmp := not(tmp);
+				counter <= 0;
+			else
+				counter <= counter + 1;
+			end if;
+		end if;
+		output <= tmp;
+	end process;
+end;
+\end{lstlisting}
+
+Para este caso, calculando los ciclos de trabajo, considerando $f_1 = 50 
+[MHz]$ y $f_2 = 200 [Hz]$, se tiene:
+\[ \# ciclos = \frac{f_1}{f_2}\\ = \frac{50 [MHz]}{200 [Hz]}\\ = 250000 \]
+
+Con lo anterior, para lograr generar una oscilación de $200 [Hz]$, se 
+necesitan contar $250000$ oscilaciones de la onda de $50 [MHz]$. sin embargo, 
+la oscilación completa contiene un periodo en bajo y un periodo en alto. En 
+este caso, el código divide a la mitad el periodo en alto y el periodo en bajo 
+con la finalidad de que las oscilaciones sean simétricas ---justamente es de 
+aquí de donde sale la variable \texttt{limit = 124999}---
+
+Lo interesante de este código se presenta cuando está activo el valor de 
+\texttt{reset}, ya que cuando se activa, la cuenta se reinicia.
+
+Es importante mencionar que ninguno de estos circuito se simuló ya que se 
+necesitan millones de oscilaciones ---lo cual \textit{Quartus} no puede 
+controlar--- y una captura de pantalla no permite visualizar la variación que 
+se tiene en la señal.
+
+\end{document}

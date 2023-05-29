@@ -1,0 +1,74 @@
+%% %% %% %%
+%%
+%% Práctica 5
+%%  Implementación de compuertas básicas
+%%  en la plataroma Quartus II, en modo gráfico
+%%
+%% %% %% %%
+
+\documentclass[12pt, letterpaper]{article}
+
+% Paquetes básicos
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{subfiles}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{cancel}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\usepackage[hidelinks]{hyperref}
+\usepackage{karnaugh-map}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuraciones adicionales
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+\graphicspath{{./img/}}
+\addbibresource{bib/referencias.bib}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Definción de macros
+\newcommand{\nt}[1]{\overline{#1}}
+\newcommand{\n}[1]{\bar{#1}}
+
+% Documento
+\begin{document}
+\subfile{sections/portada}
+\subfile{sections/indice}
+\subfile{sections/objetivo}
+\subfile{sections/materiales}
+\subfile{sections/introduccion}
+\subfile{sections/desarrollo}
+\subfile{sections/conclusion}
+\subfile{sections/bibliografia}
+\end{document}

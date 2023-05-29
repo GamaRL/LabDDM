@@ -1,0 +1,111 @@
+%% %% %% %%
+%%
+%% Previo de la práctica
+%%
+%% %% %% %%
+
+\documentclass[../procedimientos.tex]{subfiles}
+\graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+\subsection{Previo} \label{subs:previo}
+\subsubsection*{Pregunta 1}
+\begin{em}
+  ¿Cómo se utiliza un contador como divisor de frecuencias?
+\end{em}
+
+Se necesitan los siguientes elementos:
+\begin{itemize}
+  \item \textbf{Contador de n bits.} El contador de n bits es el encargado de 
+    realizar el conteo de ciclos de reloj de $CLK$.
+  \item \textbf{Flip-Flop D.} El Flip-Flop tipo D es el encargado de almacenar 
+    el estado de la bandera encargada de cambiar el estado de la señal de salida 
+    $CLK_{div}$.
+  \item \textbf{Comparador de Igualdad.} Cuando el contador de n bits alcance 
+    el número máximo de conteo ($Count_{MAX}$), se activará una bandera para 
+    cambiar de estado al Flip-Flop tipo D, el encargado de activar dicha 
+    bandera es el comparador de igualdad.
+  \item \textbf{Sumador.} Este componente será el encargado de incrementar en 1 el contador de n 
+    bits hasta el rango requerido por la aplicación.
+\end{itemize}
+
+La cuestión es encontrar el número de ciclos de una frequencia base que 
+completan la frecuencia esperada. El contador cuenta el número de flancos 
+ascendentes o descendentes de la señal y con ello, se detecta cuando se 
+tiene un ciclo completado (de la nueva señal).
+
+\subsubsection*{Pregunta 2}
+\begin{em}
+  ¿Qué es un PWM, en que basa su funcionamiento?
+\end{em}
+
+\textit{PWM} son las siglas de \textit{Pulse Width Modulation} (Modulación por 
+ancho de pulso). Es una técnica que se usa para transmitir señales analógicas 
+cuya señal portadora será digital. En esta técnica se modifica el ciclo de 
+trabajo de una señal periódica (una senoidal o una cuadrada, por ejemplo), ya 
+sea para transmitir información a través de un canal de comunicaciones o para 
+controlar la cantidad de energía que se envía a una carga.
+
+Básicamente, consiste en activar una salida digital durante un tiempo y 
+mantenerla apagada durante el resto, generando así pulsos positivos que se 
+repiten de manera constante. Por tanto, la frecuencia es constante (es decir, 
+el tiempo entre disparo de pulsos), mientras que se hace variar la anchura del 
+pulso, el \textit{duty cycle}. El promedio de esta tensión de salida, a lo 
+largo del tiempo, será igual al valor analógico deseado.
+
+\subsubsection*{Pregunta 3}
+\begin{em}
+  ¿Qué es un atributo a una señal?
+\end{em}
+
+Algunas d elas características que caracterizan a una señal son:
+\begin{itemize}
+  \item \textbf{Periodo.} El tiempo que tarda la señal en completar un ciclo.
+  \item \textbf{Frecuencia.} El número de ciclos que se completan en una 
+    unidad de tiempo.
+  \item \textbf{Amplitud.} Es la máxima distancia de un punto de equilibrio a 
+    la un punto de la señal.
+\end{itemize}
+
+\subsubsection*{Pregunta 4}
+\begin{em}
+  ¿Qué es una variable y una constante? ¿Cómo se inicializa una variable a un 
+  valor (asignación)?
+\end{em}
+
+\paragraph{Constantes.} Es un elemento que se inicializa con un valor 
+determinado, el cual no puede ser modificado, es decir siempre conserva el 
+mismo valor. Esto se realiza con la palabra reservada \texttt{CONSTANT}.
+\begin{lstlisting}[language=vhdl]
+-- Declaracion de una constante
+constant e : integer := 10;
+\end{lstlisting}
+
+\paragraph{Variables.} Es lo mismo que una constante, pero con la diferencia 
+que puede ser modificada en cualquier instante, aunque también es posible 
+inicializarlas. La palabra reservada \texttt{VARIABLE} es la que permite 
+declarar variables.
+\begin{lstlisting}[language=vhdl]
+-- Declaracion de una variable
+variable e : std_logic(3 downto 0) := "1010";
+\end{lstlisting}
+
+\subsubsection*{Pregunta 5}
+\begin{em}
+  ¿Qué es y cómo se define un ciclo de trabajo en una señal astable?
+\end{em}
+
+El ciclo de trabajo (\textit{duty cycle}) de una señal periódica es el ancho 
+de su parte positiva, en relación con el período. Está expresado en 
+porcentaje, por tanto, un \textit{duty cycle} ($d$) de 10\% indica que está 10 
+de 100 a nivel alto.
+
+\[ d = \frac{q}{T} \]
+
+\begin{itemize}
+  \item $q$: Tiempo en parte positiva
+  \item $T$: Periodo, tiempo total
+\end{itemize}
+
+\end{document}
+
